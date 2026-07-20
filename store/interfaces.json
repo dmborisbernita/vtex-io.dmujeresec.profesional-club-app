@@ -1,0 +1,31 @@
+{
+  "club-profesional": {
+    "component": "ClubProfesional",
+    "schema": {
+      "title": "Club Profesional",
+      "type": "object",
+      "properties": {
+        "heroTitle": {
+          "title": "Título principal",
+          "type": "string",
+          "default": "Hablemos de ti. Hablemos de tu cuenta profesional."
+        },
+        "heroSubtitle": {
+          "title": "Subtítulo",
+          "type": "string",
+          "default": "Creamos el Club Profesional para estudiantes e independientes que viven de la belleza: precios especiales y beneficios pensados para tu día a día."
+        },
+        "promoTitle": {
+          "title": "Título de la promoción",
+          "type": "string",
+          "default": "20% adicional en tu primera compra profesional"
+        },
+        "promoText": {
+          "title": "Texto de la promoción",
+          "type": "string",
+          "default": "Válido para cuentas nuevas aprobadas este mes."
+        }
+      }
+    }
+  }
+}

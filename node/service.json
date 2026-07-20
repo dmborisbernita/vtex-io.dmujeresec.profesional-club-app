@@ -9,6 +9,14 @@
     "status": {
       "path": "/_v/status/:code",
       "public": true
+    },
+    "config": {
+      "path": "/_v/club-profesional/config",
+      "public": true
+    },
+    "submit": {
+      "path": "/_v/club-profesional/submit",
+      "public": true
     }
   }
 }

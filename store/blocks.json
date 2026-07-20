@@ -1,0 +1,13 @@
+{
+  "store.custom#club-profesional": {
+    "blocks": ["club-profesional"]
+  },
+  "club-profesional": {
+    "props": {
+      "heroTitle": "Hablemos de ti. Hablemos de tu cuenta profesional.",
+      "heroSubtitle": "Creamos el Club Profesional para estudiantes e independientes que viven de la belleza: precios especiales y beneficios pensados para tu día a día.",
+      "promoTitle": "20% adicional en tu primera compra profesional",
+      "promoText": "Válido para cuentas nuevas aprobadas este mes."
+    }
+  }
+}

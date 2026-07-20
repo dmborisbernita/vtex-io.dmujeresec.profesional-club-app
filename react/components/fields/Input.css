@@ -1,0 +1,9 @@
+.input {
+  width: 100%; font-family: inherit; font-size: 14px; padding: 0.6rem 0.75rem;
+  border: 1px solid var(--cp-line); border-radius: 10px; background: var(--cp-bg-soft); color: var(--cp-ink);
+  outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus { border-color: var(--cp-pink); box-shadow: 0 0 0 3px rgba(227,28,95,0.15); }
+.inputError { border-color: var(--cp-danger); }
+.select { appearance: none; }
+.input:disabled { opacity: 0.55; cursor: not-allowed; }

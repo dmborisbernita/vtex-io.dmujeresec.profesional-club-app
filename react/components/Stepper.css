@@ -1,0 +1,15 @@
+.stepperList { list-style: none; display: flex; margin: 0 0 1.5rem; padding: 0; }
+.stepperItem { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; position: relative; }
+.stepperItem:not(:last-child)::after {
+  content: ''; position: absolute; top: 13px; left: calc(50% + 20px); right: calc(-50% + 20px);
+  height: 1px; background: var(--cp-line);
+}
+.stepperDot {
+  width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; background: #fff; border: 1px solid var(--cp-line); color: var(--cp-ink-soft);
+  position: relative; z-index: 1;
+}
+.stepperItemActive .stepperDot { border-color: var(--cp-pink); color: var(--cp-pink); }
+.stepperItemDone .stepperDot { background: var(--cp-pink); border-color: var(--cp-pink); color: #fff; }
+.stepperLabel { font-size: 11.5px; color: var(--cp-ink-soft); text-align: center; }
+.stepperItemActive .stepperLabel { color: var(--cp-black); font-weight: 600; }

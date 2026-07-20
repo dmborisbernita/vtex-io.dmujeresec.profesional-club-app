@@ -1,34 +1,80 @@
 {
-  "name": "service-example",
-  "vendor": "vtex",
+  "name": "club-profesional",
+  "vendor": "dmujeresec",
   "version": "0.3.0",
-  "title": "Service Example",
+  "title": "Club Profesional App",
   "description": "Reference app for VTEX IO Services",
   "mustUpdateAt": "2018-01-04",
   "categories": [],
-  "dependencies": {},
+  "dependencies": {
+    "vtex.store": "2.x",
+    "vtex.css-handles": "1.x"
+  },
   "builders": {
     "node": "7.x",
-    "docs": "0.x"
-  },
-  "scripts": {
-    "prereleasy": "bash lint.sh"
+    "docs": "0.x",
+    "react": "3.x",
+    "store": "0.x"
   },
   "credentialType": "absolute",
+  "settingsSchema": {
+    "title": "Club Profesional",
+    "type": "object",
+    "properties": {
+      "recaptchaSiteKey": {
+        "title": "reCAPTCHA v3 - Site key (pública)",
+        "type": "string"
+      },
+      "recaptchaSecretKey": {
+        "title": "reCAPTCHA v3 - Secret key (privada)",
+        "type": "string"
+      },
+      "registrationsApiToken": {
+        "title": "Registrations API - Token (privado)",
+        "type": "string"
+      }
+    }
+  },
   "policies": [
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "httpstat.us",
-        "path": "*"
+        "host": "www.google.com",
+        "path": "/recaptcha/api/siteverify*"
       }
     },
     {
-      "name": "colossus-fire-event"
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.myvtex.com",
+        "path": "/api/dataentities/*"
+      }
     },
     {
-      "name": "colossus-write-logs"
+      "name": "outbound-access",
+      "attrs": {
+        "host": "api.dmujeres-dev.ec:8000",
+        "path": "/v2/registrations/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "api.clubprofesional.com",
+        "path": "/registrations*"
+      }
+    },
+    {
+      "name": "ADMIN_DS"
     }
   ],
+  "billingOptions": {
+    "termsURL": "",
+    "support": {
+      "url": ""
+    },
+    "free": true,
+    "type": "free"
+  },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

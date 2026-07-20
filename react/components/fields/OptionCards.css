@@ -1,0 +1,11 @@
+.options { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 0.6rem; }
+.option {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;
+  font-family: inherit; font-size: 13px; color: var(--cp-ink-soft); background: var(--cp-bg-soft);
+  border: 1px solid var(--cp-line); border-radius: 12px; padding: 0.75rem 0.6rem; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.option:hover { border-color: var(--cp-pink); }
+.optionActive { background: var(--cp-pink); border-color: var(--cp-pink); color: #fff; }
+.optionLabel { font-weight: 600; }
+.optionDesc { font-size: 11px; opacity: 0.8; }

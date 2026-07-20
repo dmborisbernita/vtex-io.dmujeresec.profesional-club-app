@@ -1,0 +1,19 @@
+.stepContent { display: flex; flex-direction: column; gap: 1.1rem; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+@media (max-width: 540px) { .row { grid-template-columns: 1fr; } }
+.fileDrop {
+  display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 13px;
+  border: 1.5px dashed var(--cp-line); border-radius: 12px; padding: 1.1rem; cursor: pointer;
+  color: var(--cp-ink-soft); background: var(--cp-bg-soft);
+}
+.fileDrop:hover { border-color: var(--cp-pink); color: var(--cp-black); }
+.fileInput { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+.fileList { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.fileList li { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--cp-ink-soft); }
+
+.summary { border-top: 1px solid var(--cp-line); padding-top: 1.1rem; margin-top: 0.25rem; }
+.summaryTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; color: var(--cp-black); }
+.summary dl { margin: 0.75rem 0 0; display: flex; flex-direction: column; gap: 0.45rem; }
+.summary dl > div { display: flex; justify-content: space-between; gap: 1rem; font-size: 13px; }
+.summary dt { color: var(--cp-ink-soft); }
+.summary dd { margin: 0; font-weight: 600; text-align: right; }

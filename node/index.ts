@@ -4,6 +4,11 @@ import { LRUCache, method, Service } from '@vtex/api'
 import { Clients } from './clients'
 import { status } from './middlewares/status'
 import { validate } from './middlewares/validate'
+import { config } from "./middlewares/config";
+import { honeypot } from "./middlewares/honeypot";
+import { parseBody } from "./middlewares/parseBody";
+import { recaptcha } from "./middlewares/recaptcha"; 
+import { saveApplication } from "./middlewares/saveApplication";
 
 const TIMEOUT_MS = 800
 
@@ -52,5 +57,7 @@ export default new Service({
     status: method({
       GET: [validate, status],
     }),
+    config: method({ GET: [config] }),
+    submit: method({ POST: [parseBody, honeypot, recaptcha, saveApplication ] }), 
   },
 })

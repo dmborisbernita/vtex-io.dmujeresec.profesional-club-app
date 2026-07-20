@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+.wizardShell {
+  --cp-pink: #E31C5F;
+  --cp-pink-dark: #B8134A;
+  --cp-pink-tint: #FCE7EE;
+  --cp-black: #1A1A1A;
+  --cp-ink: #1A1A1A;
+  --cp-ink-soft: #6B6B6B;
+  --cp-line: #E6E6E6;
+  --cp-bg: #FFFFFF;
+  --cp-bg-soft: #F7F7F8;
+  --cp-danger: #C0392B;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--cp-ink);
+  background: var(--cp-bg);
+  padding: 2.5rem 1.25rem;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+.wizardShell * { box-sizing: border-box; }
+
+.wizardGrid {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .wizardGrid { grid-template-columns: 1fr; }
+}
+
+.wizardAside { position: sticky; top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+@media (max-width: 860px) { .wizardAside { position: static; } }
+
+.wizardBenefits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.wizardBenefits li {
+  display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--cp-ink-soft);
+  background: #fff; border: 1px solid var(--cp-line); border-radius: 10px; padding: 0.6rem 0.75rem;
+}
+.wizardBenefits li svg { color: var(--cp-pink); flex-shrink: 0; }
+
+.wizardHeader { margin-bottom: 1.5rem; }
+.wizardEyebrow { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cp-pink); font-weight: 600; }
+.wizardTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 28px); margin: 0.35rem 0 0.5rem; color: var(--cp-black); }
+.wizardSubtitle { margin: 0; color: var(--cp-ink-soft); font-size: 14.5px; line-height: 1.55; max-width: 46ch; }
+
+.wizardPanel { background: #fff; border: 1px solid var(--cp-line); border-radius: 16px; padding: 1.75rem; }
+.wizardHoneypot { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; left: -9999px; }
+.wizardError { font-size: 12px; color: var(--cp-danger); }
+.wizardSubmitError { margin-top: 1rem; text-align: right; }
+
+.wizardNav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.75rem; }
+.wizardBtn {
+  display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 13.5px;
+  font-weight: 600; padding: 0.65rem 1.2rem; border-radius: 999px; cursor: pointer; border: none;
+  transition: transform 0.1s, background 0.15s;
+}
+.wizardBtn:active { transform: scale(0.97); }
+.wizardBtnPrimary { background: var(--cp-pink); color: #fff; }
+.wizardBtnPrimary:hover { background: var(--cp-pink-dark); }
+.wizardBtnGhost { background: transparent; color: var(--cp-ink-soft); border: 1px solid var(--cp-line); }
+.wizardBtnGhost:hover { border-color: var(--cp-black); color: var(--cp-black); }
+
+.wizardSuccess { max-width: 480px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.wizardSuccessIcon {
+  width: 52px; height: 52px; border-radius: 50%; background: var(--cp-pink); color: #fff;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 0.25rem;
+}
+.wizardSuccessTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 22px; color: var(--cp-black); margin: 0; }
+.wizardSuccessText { color: var(--cp-ink-soft); font-size: 14px; line-height: 1.6; margin: 0 0 0.5rem; }
+.wizardSuccessCard { width: 100%; max-width: 340px; margin: 0.5rem 0 1rem; }

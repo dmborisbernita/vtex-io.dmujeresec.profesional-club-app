@@ -1,0 +1,35 @@
+.card {
+  position: relative;
+  background: var(--cp-black);
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  color: #fff;
+  overflow: hidden;
+  border: 1px solid #2A2A2A;
+  min-height: 220px;
+}
+.cardPattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(227,28,95,0.14) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: 0.7;
+}
+.cardTop { display: flex; align-items: baseline; justify-content: space-between; position: relative; }
+.cardBrand { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 0.01em; }
+.cardKicker { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #FF6C97; }
+.cardBody { position: relative; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.cardNameLabel { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.cardName { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 600; line-height: 1.2; }
+.cardBadge {
+  margin-top: 0.35rem; display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(227,28,95,0.22); border: 1px solid rgba(227,28,95,0.55);
+  color: #FF6C97; font-size: 12.5px; padding: 4px 10px; border-radius: 999px; width: fit-content;
+}
+.cardBottom {
+  position: relative; margin-top: 1.5rem; display: flex; justify-content: space-between;
+  padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.18);
+}
+.cardMiniLabel { display: block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.cardMiniValue { display: block; font-size: 13.5px; margin-top: 2px; }
+.cardStrip { position: relative; margin-top: 1rem; height: 3px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden; }
+.cardStripFill { height: 100%; background: var(--cp-pink); transition: width 0.4s ease; }

@@ -1,0 +1,11 @@
+{
+  "name": "club-profesional",
+  "version": "0.1.0",
+  "dependencies": {
+    "lucide-react": "^0.383.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.11",
+    "typescript": "3.9.7"
+  }
+}
