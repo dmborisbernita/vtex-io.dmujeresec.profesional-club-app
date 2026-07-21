@@ -21,5 +21,6 @@ export const INITIAL_DATA = {
   negocioRuc: "",
   actividadNegocio: ACTIVIDADES_NEGOCIO[0],
   documentos: [],
+  consentimiento: false,
   website: "", // honeypot: debe llegar siempre vacío. Los bots suelen autocompletarlo.
 };

@@ -1,6 +1,16 @@
 .stepContent { display: flex; flex-direction: column; gap: 1.1rem; }
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
 @media (max-width: 540px) { .row { grid-template-columns: 1fr; } }
+.docOptionsBox {
+  margin: 0 0 0.6rem; padding: 0.7rem 0.9rem; background: var(--cp-bg-soft);
+  border-radius: 10px;
+}
+.docOptionsTitle { display: block; font-size: 12px; font-weight: 600; color: var(--cp-black); margin-bottom: 4px; }
+.docOptions {
+  margin: 0; padding: 0 0 0 1.1rem; list-style: disc; font-size: 12.5px;
+  color: var(--cp-ink-soft); display: flex; flex-direction: column; gap: 3px;
+}
+
 .fileDrop {
   display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 13px;
   border: 1.5px dashed var(--cp-line); border-radius: 12px; padding: 1.1rem; cursor: pointer;
@@ -8,8 +18,21 @@
 }
 .fileDrop:hover { border-color: var(--cp-pink); color: var(--cp-black); }
 .fileInput { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
-.fileList { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.fileList li { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--cp-ink-soft); }
+.fileList { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.fileItem {
+  display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--cp-black);
+  background: var(--cp-bg-soft); border: 1px solid var(--cp-line); border-radius: 10px;
+  padding: 0.5rem 0.6rem;
+}
+.fileItem svg:first-child { color: var(--cp-pink); flex-shrink: 0; }
+.fileName { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fileSize { color: var(--cp-ink-soft); font-size: 11.5px; flex-shrink: 0; }
+.fileRemove {
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 22px; height: 22px; border-radius: 50%; border: none; background: transparent;
+  color: var(--cp-ink-soft); cursor: pointer;
+}
+.fileRemove:hover { background: var(--cp-pink-tint); color: var(--cp-pink-dark); }
 
 .summary { border-top: 1px solid var(--cp-line); padding-top: 1.1rem; margin-top: 0.25rem; }
 .summaryTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15px; color: var(--cp-black); }

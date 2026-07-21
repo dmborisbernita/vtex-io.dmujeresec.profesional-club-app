@@ -2,24 +2,10 @@ import React from "react";
 import handles from "./Landing.css";
 
 
-
 export function Landing({ onCta, heroTitle, heroSubtitle, promoTitle, promoText }) {
-  //const handles = useCssHandles(CSS_HANDLES);
+
   return (
     <div className={handles.landingRoot}>
-      {/*<div className={handles.landingBanner}>
-        <img
-          src="https://placehold.co/1200x420/1A1A1A/E31C5F?font=poppins&text=Foto+de+profesionales+DMujeres"
-          alt="Profesionales de belleza trabajando con productos DMujeres"
-        />
-      </div>*/}
-
-      <section className={handles.landingHero}>
-        <span className={handles.landingEyebrow}>Club profesional DMujeres</span>
-        <h1 className={handles.landingH1}>{heroTitle}</h1>
-        <p className={handles.landingLead}>{heroSubtitle}</p>
-      </section>
-
       <section
         className={handles.landingPromo}
         style={{

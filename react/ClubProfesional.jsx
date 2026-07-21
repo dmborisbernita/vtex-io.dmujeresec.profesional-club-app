@@ -11,13 +11,13 @@ function ClubProfesional({ heroTitle, heroSubtitle, promoTitle, promoText }) {
 
   return (
     <div>
-      <Landing
+  {/*     <Landing
         onCta={scrollToForm}
         heroTitle={heroTitle}
         heroSubtitle={heroSubtitle}
         promoTitle={promoTitle}
         promoText={promoText}
-      />
+      /> */}
       <div ref={formRef} id="formulario">
         <ClubProfesionalWizard />
       </div>

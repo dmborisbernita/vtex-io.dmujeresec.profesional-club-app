@@ -1,0 +1,14 @@
+.imageElement--club-profesional-hero {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+@media (min-width: 40em) {
+    .imageElement--club-profesional-hero {
+        max-width: 1040px;
+        border-radius: 18px;
+    }
+}

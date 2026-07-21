@@ -21,3 +21,27 @@ export const STEPS = [
   { id: 3, label: "Perfil profesional" },
   { id: 4, label: "Confirmar" },
 ];
+
+export const STEP_INFO = {
+  1: "Usamos estos datos para verificar tu identidad y evitar registros duplicados.",
+  2: "Te contactaremos por estos medios para validar tu cuenta y avisarte de tus beneficios.",
+  3: "Esta información nos permite asignarte los beneficios correctos según tu actividad profesional.",
+  4: "Revisa que todo esté correcto. Tus documentos solo se usan para validar tu perfil profesional.",
+};
+
+export const DOC_OPTIONS_BY_TIPO = {
+  estudiante: [
+    "Carnet de estudiante",
+    "Certificado de la academia",
+    "Última factura o recibo de pago",
+  ],
+  independiente: [
+    "JDNA vigente",
+    "Certificación emitida por el Ministerio de Trabajo",
+    "Título profesional en belleza o ramas afines",
+    "Título de artesano",
+  ],
+  propietario: [
+    "PDF del RUC asociado a labores afines a la belleza",
+  ],
+};

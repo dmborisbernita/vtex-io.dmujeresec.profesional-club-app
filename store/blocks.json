@@ -1,6 +1,10 @@
 {
   "store.custom#club-profesional": {
-    "blocks": ["club-profesional"]
+    "blocks": [
+      "rich-text#club-profesional-eyebrow",
+      "image#club-profesional-hero",
+      "club-profesional"
+    ]
   },
   "club-profesional": {
     "props": {
@@ -8,6 +12,19 @@
       "heroSubtitle": "Creamos el Club Profesional para estudiantes e independientes que viven de la belleza: precios especiales y beneficios pensados para tu día a día.",
       "promoTitle": "20% adicional en tu primera compra profesional",
       "promoText": "Válido para cuentas nuevas aprobadas este mes."
+    }
+  },
+  "rich-text#club-profesional-eyebrow": {
+    "props": {
+      "text": "El mejor club para profesionales de la belleza",
+      "blockClass": "club-profesional-eyebrow"
+    }
+  },
+  "image#club-profesional-hero": {
+    "props": {
+      "src": "https://dmujeresec.vtexassets.com/assets/vtex.file-manager-graphql/images/1cce3351-b22c-4fc7-a2da-376e75f104fe___a3ceb4c69442287dfc6ccb9c479e27ea.png",
+      "alt": "Profesionales de belleza trabajando con productos DMujeres",
+      "blockClass": "club-profesional-hero"
     }
   }
 }

@@ -28,8 +28,10 @@ export function validateStep(current, data) {
     }
   }
   if (current === 4) {
-    if (data.tipoSolicitud !== "propietario" && data.documentos.length === 0)
+    if (data.documentos.length === 0)
       e.documentos = "Adjunta al menos un documento";
+    if (!data.consentimiento)
+      e.consentimiento = "Debes aceptar el tratamiento de datos para continuar";
   }
   return e;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles, Info } from "lucide-react";
 import handles from "./ClubProfesionalWizard.css";
 import { Stepper } from "../Stepper";
 import { MembershipCard } from "../MembershipCard";
@@ -7,7 +7,13 @@ import { StepIdentidad } from "./steps/StepIdentidad";
 import { StepContacto } from "./steps/StepContacto";
 import { StepPerfil } from "./steps/StepPerfil";
 import { StepConfirmar } from "./steps/StepConfirmar";
-import { STEPS, ACTIVIDADES_INDEPENDIENTE, ACTIVIDADES_NEGOCIO } from "../../constants/catalog";
+import {
+  STEPS,
+  STEP_INFO,
+  DOC_OPTIONS_BY_TIPO,
+  ACTIVIDADES_INDEPENDIENTE,
+  ACTIVIDADES_NEGOCIO,
+} from "../../constants/catalog";
 import { INITIAL_DATA } from "../../constants/initialData";
 import { useRecaptcha } from "../../hooks/useRecaptcha";
 import { validateStep } from "../../utils/validateStep";
@@ -22,9 +28,6 @@ export function ClubProfesionalWizard() {
   const [submitError, setSubmitError] = useState(null);
   const [data, setData] = useState(INITIAL_DATA);
   const [errors, setErrors] = useState({});
-  const [memberCode] = useState(
-    () => "PRO-" + Math.floor(1000 + Math.random() * 9000)
-  );
   const { getToken } = useRecaptcha();
 
   function readFileAsBase64(file) {
@@ -68,11 +71,15 @@ export function ClubProfesionalWizard() {
           contenido: await readFileAsBase64(f),
         }))
       );
+      const { consentimiento, ...dataToSend } = data;
       const res = await fetch("/_v/club-profesional/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...data,
+          ...dataToSend,
+          // El backend solo conoce "negocio"; "propietario" es el label/valor
+          // que usa la UI para ese mismo perfil.
+          tipoSolicitud: data.tipoSolicitud === "propietario" ? "negocio" : data.tipoSolicitud,
           documentos,
           recaptchaToken,
         }),
@@ -144,11 +151,7 @@ export function ClubProfesionalWizard() {
     return Math.min(100, Math.round(base * 0.7 + bonus));
   }, [data, step]);
 
-  const requiresDocs = data.tipoSolicitud !== "propietario";
-  const docHint =
-    data.tipoSolicitud === "estudiante"
-      ? "Carnet de estudiante, certificado de la academia o último recibo de pago"
-      : "Carnet JDNA vigente, título profesional en belleza o título de artesano";
+  const docOptions = DOC_OPTIONS_BY_TIPO[data.tipoSolicitud];
 
   if (submitted) {
     return (
@@ -163,7 +166,7 @@ export function ClubProfesionalWizard() {
             y te contactará por correo o teléfono en los próximos días hábiles.
           </p>
           <div className={handles.wizardSuccessCard}>
-            <MembershipCard data={data} progress={100} memberCode={memberCode} />
+            <MembershipCard data={data} progress={100} />
           </div>
           <button
             type="button"
@@ -181,25 +184,8 @@ export function ClubProfesionalWizard() {
     <div className={handles.wizardShell}>
       <div className={handles.wizardGrid}>
         <aside className={handles.wizardAside}>
-          <MembershipCard data={data} progress={progress} memberCode={memberCode} />
-          <ul className={handles.wizardBenefits}>
-            <li><Sparkles size={15} strokeWidth={1.8} /> Hasta 15% off en tu cuenta profesional</li>
-            <li><CreditCard size={15} strokeWidth={1.8} /> Compras a 3 meses sin intereses</li>
-            <li><MapPin size={15} strokeWidth={1.8} /> Envíos a nivel nacional</li>
-          </ul>
-        </aside>
-
-        <section className={handles.wizardMain}>
-          <header className={handles.wizardHeader}>
-            <span className={handles.wizardEyebrow}>Club profesional</span>
-            <h1 className={handles.wizardTitle}>Únete a la comunidad DMujeres</h1>
-            <p className={handles.wizardSubtitle}>
-              Completa tu solicitud en {STEPS.length} pasos y accede a beneficios exclusivos
-              para profesionales de la belleza.
-            </p>
-          </header>
-
-          {/* TODO(dev): botón trampa para pruebas rápidas, quitar antes de producción. */}
+          <MembershipCard data={data} progress={progress} />
+           {/* TODO(dev): botón trampa para pruebas rápidas, quitar antes de producción. */}
           <button
             type="button"
             onClick={fillFakeData}
@@ -218,8 +204,29 @@ export function ClubProfesionalWizard() {
           >
             🧪 Rellenar datos de prueba
           </button>
+          <ul className={handles.wizardBenefits}>
+            <li><Sparkles size={15} strokeWidth={1.8} /> Hasta 15% off en tu cuenta profesional</li>
+            <li><CreditCard size={15} strokeWidth={1.8} /> Compras a 3 meses sin intereses</li>
+            <li><MapPin size={15} strokeWidth={1.8} /> Envíos a nivel nacional</li>
+          </ul>
+        </aside>
+
+        <section className={handles.wizardMain}>
+          <header className={handles.wizardHeader}>
+            <span className={handles.wizardEyebrow}>Club profesional</span>
+            <h1 className={handles.wizardTitle}>Únete a la comunidad DMujeres</h1>
+            <p className={handles.wizardSubtitle}>
+              Completa tu solicitud en {STEPS.length} pasos y accede a beneficios exclusivos
+              para profesionales de la belleza.
+            </p>
+          </header>
 
           <Stepper step={step} />
+
+          <div className={handles.wizardStepInfo}>
+            <Info size={15} strokeWidth={1.8} />
+            <span>{STEP_INFO[step]}</span>
+          </div>
 
           <div className={handles.wizardPanel}>
             <input
@@ -240,13 +247,32 @@ export function ClubProfesionalWizard() {
                 data={data}
                 errors={errors}
                 update={update}
-                requiresDocs={requiresDocs}
-                docHint={docHint}
+                docOptions={docOptions}
               />
             )}
 
             {submitError && (
               <p className={`${handles.wizardError} ${handles.wizardSubmitError}`}>{submitError}</p>
+            )}
+
+            {step === 4 && (
+              <>
+                <label className={handles.wizardConsent}>
+                  <input
+                    type="checkbox"
+                    checked={data.consentimiento}
+                    onChange={(e) => update("consentimiento", e.target.checked)}
+                  />
+                  <span>
+                    He leído y acepto que mis datos personales sean usados para procesar
+                    esta solicitud, conforme a la Ley Orgánica de Protección de Datos
+                    Personales.
+                  </span>
+                </label>
+                {errors.consentimiento && (
+                  <p className={handles.wizardError}>{errors.consentimiento}</p>
+                )}
+              </>
             )}
 
             <div className={handles.wizardNav}>
