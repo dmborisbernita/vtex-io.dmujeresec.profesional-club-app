@@ -4,11 +4,10 @@ import { getAppSettingsSafe } from "../utils/getAppSettings";
 export async function saveApplication(ctx: Context) {
   const {
     state: { body },
+    clients: { registrations },
     vtex: { logger },
   } = ctx;
 
-  // Nota: los documentos adjuntos (carnet, título, etc.) viajan solo como
-  // nombres de archivo; este endpoint no recibe los binarios.
   const { recaptchaToken, ...payload } = body as RegistrationPayload & {
     recaptchaToken?: string;
   };
@@ -25,37 +24,35 @@ export async function saveApplication(ctx: Context) {
   }
 
   try {
-    const response = await fetch("https://api.clubprofesional.com/registrations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${settings.registrationsApiToken}`,
-      },
-      body: JSON.stringify(payload),
-    });
 
-    if (!response.ok) {
-      logger.error({
-        message: "club-profesional-registrations-http-error",
-        status: response.status,
-      });
-      ctx.status = 500;
-      ctx.body = { error: "Error interno guardando la solicitud" };
-      return;
-    }
+    console.log("Payload to send to registrations API:", settings.registrationsApiToken);
+    const data = await registrations.create(
+      settings.registrationsApiToken,
+      payload
+    );
 
-    const data = await response.json().catch(() => null);
+    console.log("Response from registrations API:", data);
 
     ctx.status = 200;
     ctx.body = { ok: true, id: data?.id ?? null };
   } catch (err) {
-    // fetch solo rechaza la promesa por fallas de red/conexión (DNS, timeout,
-    // conexión rechazada); los errores HTTP (4xx/5xx) ya se manejan arriba
-    // con response.ok, así que si llegamos aquí es el servicio no disponible.
-    logger.error({ message: "club-profesional-registrations-error", error: err });
-    ctx.status = 502;
-    ctx.body = {
-      error: "El servicio de registro no está disponible en este momento. Intenta más tarde.",
-    };
+    console.log("Error from registrations API:", err);
+
+    const { status, data: responseBody } =
+      (err as { response?: { status?: number; data?: unknown } }).response ?? {};
+
+    logger.error({
+      message: "club-profesional-registrations-error",
+      status,
+      body: responseBody,
+      error: err,
+    });
+
+    ctx.status = status ? 500 : 502;
+    ctx.body = status
+      ? { error: "Error interno guardando la solicitud" }
+      : {
+          error: "El servicio de registro no está disponible en este momento. Intenta más tarde.",
+        };
   }
 }

@@ -27,6 +27,15 @@ export function ClubProfesionalWizard() {
   );
   const { getToken } = useRecaptcha();
 
+  function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   function update(field, value) {
     setData((d) => {
       const next = { ...d, [field]: value };
@@ -53,14 +62,18 @@ export function ClubProfesionalWizard() {
     setSubmitError(null);
     try {
       const recaptchaToken = await getToken();
+      const documentos = await Promise.all(
+        data.documentos.map(async (f) => ({
+          nombre: f.name,
+          contenido: await readFileAsBase64(f),
+        }))
+      );
       const res = await fetch("/_v/club-profesional/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          // Los archivos reales se suben aparte (ver nota en node/routes/submit.ts);
-          // aquí solo mandamos los nombres para el registro inicial.
-          documentos: data.documentos.map((f) => f.name),
+          documentos,
           recaptchaToken,
         }),
       });

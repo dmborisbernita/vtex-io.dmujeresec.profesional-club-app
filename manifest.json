@@ -53,7 +53,7 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "api.dmujeres-dev.ec:8000",
+        "host": "api.dmujeres.ec",
         "path": "/v2/registrations/*"
       }
     },

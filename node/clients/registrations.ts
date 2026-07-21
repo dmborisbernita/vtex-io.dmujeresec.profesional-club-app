@@ -22,7 +22,7 @@ export interface RegistrationPayload {
   negocioRuc?: string;
   actividadIndependiente?: string;
   actividadNegocio?: string;
-  documentos: string[];
+  documentos: Array<{ nombre: string; contenido: string }>;
 }
 
 interface RegistrationResponse {
@@ -32,7 +32,7 @@ interface RegistrationResponse {
 
 export class RegistrationsClient extends ExternalClient {
   constructor(context: IOContext, options?: InstanceOptions) {
-    super("http://api.dmujeres-dev.ec:8000", context, options);
+    super("http://api.dmujeres.ec", context, options);
   }
 
   public create(token: string, payload: RegistrationPayload) {
