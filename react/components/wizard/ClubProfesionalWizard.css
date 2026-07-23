@@ -30,8 +30,12 @@
 }
 @media (max-width: 860px) {
   .wizardGrid { grid-template-columns: 1fr; }
-  .wizardAside { order: 2; }
-  .wizardMain { order: 1; }
+/*   .wizardAside { order: 2; }
+  .wizardMain { order: 1; } */
+  .wizardShell {
+  padding: 1.25rem 1.25rem;
+
+}
 }
 
 .wizardAside { position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 1.25rem; }
@@ -43,6 +47,44 @@
   background: #fff; border: 1px solid var(--cp-line); border-radius: 10px; padding: 0.6rem 0.75rem;
 }
 .wizardBenefits li svg { color: var(--cp-pink); flex-shrink: 0; }
+
+.wizardInfoPanel {
+  background: var(--cp-bg-soft);
+  border: 1px solid var(--cp-line);
+  border-radius: 16px;
+  padding: 1.1rem 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.wizardInfoTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14.5px; color: var(--cp-black); margin: 0; }
+.wizardInfoText { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--cp-ink-soft); }
+
+.wizardInfoStats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; align-items: stretch; }
+.wizardInfoStat {
+  display: flex; align-items: flex-start; gap: 8px;
+  background: #fff; border: 1px solid var(--cp-line); border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  min-height: 68px;
+}
+.wizardInfoStat svg { color: var(--cp-pink); flex-shrink: 0; margin-top: 1px; }
+.wizardInfoStat > div { display: flex; flex-direction: column; gap: 1px; }
+.wizardInfoStatValue { font-size: 12px; font-weight: 600; color: var(--cp-black); line-height: 1.25; }
+.wizardInfoStatLabel { font-size: 10.5px; color: var(--cp-ink-soft); }
+
+.wizardInfoPolicy {
+  display: flex; align-items: flex-start; gap: 7px;
+  margin: 0; padding-top: 0.75rem; border-top: 1px dashed var(--cp-line);
+  font-size: 11px; line-height: 1.5; color: var(--cp-ink-soft);
+}
+.wizardInfoPolicy svg { color: var(--cp-pink); flex-shrink: 0; margin-top: 1px; }
+
+.wizardDebugRow { max-width: 1040px; margin: 1.5rem auto 0; display: flex; justify-content: center; }
+.wizardDebugBtn {
+  font-size: 12px; font-family: inherit; padding: 6px 12px; border-radius: 999px;
+  border: 1px dashed var(--cp-pink); background: var(--cp-pink-tint); color: var(--cp-pink-dark);
+  cursor: pointer;
+}
 
 .wizardHeader { margin-bottom: 1.5rem; }
 .wizardEyebrow { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cp-pink); font-weight: 600; }
@@ -56,7 +98,19 @@
 }
 .wizardStepInfo svg { flex-shrink: 0; margin-top: 2px; color: var(--cp-pink); }
 
-.wizardPanel { background: #fff; border: 1px solid var(--cp-line); border-radius: 16px; padding: 1.75rem; }
+.wizardPanel { position: relative; background: #fff; border: 1px solid var(--cp-line); border-radius: 16px; padding: 1.75rem; }
+
+.wizardLoadingOverlay {
+  position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; gap: 0.35rem;
+  padding: 2rem; border-radius: 16px; background: rgba(255,255,255,0.92); backdrop-filter: blur(2px);
+}
+.wizardLoadingOverlay .wizardSpinner { color: var(--cp-pink); margin-bottom: 0.5rem; }
+.wizardLoadingTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15.5px; color: var(--cp-black); }
+.wizardLoadingText { font-size: 13px; color: var(--cp-ink-soft); max-width: 32ch; line-height: 1.5; }
+
+.wizardSpinner { animation: wizardSpin 0.8s linear infinite; }
+@keyframes wizardSpin { to { transform: rotate(360deg); } }
 .wizardHoneypot { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; left: -9999px; }
 .wizardError { font-size: 12px; color: var(--cp-danger); }
 .wizardSubmitError { margin-top: 1rem; text-align: right; }

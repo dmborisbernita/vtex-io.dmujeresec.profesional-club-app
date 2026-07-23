@@ -13,6 +13,15 @@
 }
 .landingRoot * { box-sizing: border-box; }
 
+.landingBanner { margin: 0 0 1.75rem; border-radius: 18px; overflow: hidden; }
+.landingBanner img { display: block; width: 100%; height: auto; }
+
+.landingHero { text-align: center; padding: 0 0 2rem; max-width: 600px; margin: 0 auto; margin-top: 2rem; }
+.landingEyebrow { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cp-pink); font-weight: 600; }
+.landingH1 { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: clamp(24px, 3.6vw, 32px); line-height: 1.2; color: var(--cp-black); margin: 0.5rem 0 0.65rem; }
+.landingLead { color: var(--cp-ink-soft); font-size: 14px; line-height: 1.55; margin: 0 auto 1.25rem; }
+
+
 .landingBtn {
   display: inline-flex; align-items: center; gap: 6px; font-family: inherit; font-size: 14px;
   font-weight: 600; padding: 0.7rem 1.4rem; border-radius: 999px; cursor: pointer; border: none;

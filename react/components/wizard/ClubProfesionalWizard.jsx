@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles, Info } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles, Info, Loader2, Clock, FileCheck, ShieldCheck } from "lucide-react";
 import handles from "./ClubProfesionalWizard.css";
 import { Stepper } from "../Stepper";
 import { MembershipCard } from "../MembershipCard";
@@ -18,9 +18,18 @@ import { INITIAL_DATA } from "../../constants/initialData";
 import { useRecaptcha } from "../../hooks/useRecaptcha";
 import { validateStep } from "../../utils/validateStep";
 
+const BENEFIT_ICONS = [Sparkles, CreditCard, MapPin];
 
-
-export function ClubProfesionalWizard() {
+export function ClubProfesionalWizard({
+  infoPanelTitle,
+  infoPanelText,
+  infoStat1Value,
+  infoStat1Label,
+  infoStat2Value,
+  infoStat2Label,
+  benefits,
+  infoPolicyText,
+}) {
 
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -29,6 +38,13 @@ export function ClubProfesionalWizard() {
   const [data, setData] = useState(INITIAL_DATA);
   const [errors, setErrors] = useState({});
   const { getToken } = useRecaptcha();
+
+  // Evitamos URLSearchParams: el render SSR de VTEX IO expone un `window`/`location`
+  // pero no ese constructor global, y truena con "URLSearchParams is not defined".
+  const isDebug =
+    typeof window !== "undefined" &&
+    typeof window.location?.search === "string" &&
+    /(?:^|[?&])debug=1(?:&|$)/.test(window.location.search);
 
   function readFileAsBase64(file) {
     return new Promise((resolve, reject) => {
@@ -91,7 +107,7 @@ export function ClubProfesionalWizard() {
       setSubmitted(true);
     } catch (err) {
       setSubmitError(
-        "No pudimos enviar tu solicitud. Verifica tu conexión e inténtalo de nuevo."
+        err?.message || "No pudimos enviar tu solicitud. Verifica tu conexión e inténtalo de nuevo."
       );
     } finally {
       setSubmitting(false);
@@ -117,7 +133,7 @@ export function ClubProfesionalWizard() {
       ...INITIAL_DATA,
       nombre: "María José Pérez",
       tipoId: "cedula",
-      numeroId: "0102030405",
+      numeroId: "1710034065",
       fechaNacimiento: "1995-05-20",
       genero: "F",
       email: "maria.perez@example.com",
@@ -132,9 +148,9 @@ export function ClubProfesionalWizard() {
       fechaGraduacion: "2024-12-15",
       actividadIndependiente: ACTIVIDADES_INDEPENDIENTE[0],
       negocioNombre: "Salón Bella Vita",
-      negocioRuc: "1790012345001",
+      negocioRuc: "1792060346001",
       actividadNegocio: ACTIVIDADES_NEGOCIO[0],
-      documentos: [new File(["fake"], "cedula.jpg", { type: "image/jpeg" })],
+      documentos: [],
     });
     setErrors({});
     setStep(4);
@@ -184,31 +200,44 @@ export function ClubProfesionalWizard() {
     <div className={handles.wizardShell}>
       <div className={handles.wizardGrid}>
         <aside className={handles.wizardAside}>
-          <MembershipCard data={data} progress={progress} />
-           {/* TODO(dev): botón trampa para pruebas rápidas, quitar antes de producción. */}
-          <button
-            type="button"
-            onClick={fillFakeData}
-            style={{
-              alignSelf: "flex-start",
-              marginBottom: "1rem",
-              fontSize: "12px",
-              fontFamily: "inherit",
-              padding: "6px 12px",
-              borderRadius: "999px",
-              border: "1px dashed #E31C5F",
-              background: "#FCE7EE",
-              color: "#B8134A",
-              cursor: "pointer",
-            }}
-          >
-            🧪 Rellenar datos de prueba
-          </button>
-          <ul className={handles.wizardBenefits}>
-            <li><Sparkles size={15} strokeWidth={1.8} /> Hasta 15% off en tu cuenta profesional</li>
-            <li><CreditCard size={15} strokeWidth={1.8} /> Compras a 3 meses sin intereses</li>
-            <li><MapPin size={15} strokeWidth={1.8} /> Envíos a nivel nacional</li>
-          </ul>
+          
+
+          <div className={handles.wizardInfoPanel}>
+            <h3 className={handles.wizardInfoTitle}>{infoPanelTitle}</h3>
+            <p className={handles.wizardInfoText}>{infoPanelText}</p>
+
+            <div className={handles.wizardInfoStats}>
+              <div className={handles.wizardInfoStat}>
+                <Clock size={16} strokeWidth={1.8} />
+                <div>
+                  <span className={handles.wizardInfoStatValue}>{infoStat1Value}</span>
+                  <span className={handles.wizardInfoStatLabel}>{infoStat1Label}</span>
+                </div>
+              </div>
+              <div className={handles.wizardInfoStat}>
+                <FileCheck size={16} strokeWidth={1.8} />
+                <div>
+                  <span className={handles.wizardInfoStatValue}>{infoStat2Value}</span>
+                  <span className={handles.wizardInfoStatLabel}>{infoStat2Label}</span>
+                </div>
+              </div>
+            </div>
+
+            <ul className={handles.wizardBenefits}>
+              {benefits.map((text, i) => {
+                const BenefitIcon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
+                return (
+                  <li key={i}><BenefitIcon size={15} strokeWidth={1.8} /> {text}</li>
+                );
+              })}
+            </ul>
+
+            <p className={handles.wizardInfoPolicy}>
+              <ShieldCheck size={14} strokeWidth={1.8} />
+              {infoPolicyText}
+            </p>
+          </div>
+          {/* <MembershipCard data={data} progress={progress} /> */}
         </aside>
 
         <section className={handles.wizardMain}>
@@ -229,6 +258,16 @@ export function ClubProfesionalWizard() {
           </div>
 
           <div className={handles.wizardPanel}>
+            {submitting && (
+              <div className={handles.wizardLoadingOverlay} role="status" aria-live="polite">
+                <Loader2 size={30} strokeWidth={2} className={handles.wizardSpinner} />
+                <span className={handles.wizardLoadingTitle}>Enviando tu solicitud...</span>
+                <span className={handles.wizardLoadingText}>
+                  Estamos validando tus datos y documentos. Esto puede tomar unos segundos,
+                  no cierres ni recargues esta página.
+                </span>
+              </div>
+            )}
             <input
               type="text"
               name="website"
@@ -292,16 +331,50 @@ export function ClubProfesionalWizard() {
                 onClick={goNext}
                 disabled={submitting}
               >
-                {submitting
-                  ? "Enviando..."
-                  : step < 4
-                  ? (<>Continuar <ChevronRight size={16} /></>)
-                  : "Enviar solicitud"}
+                {submitting ? (
+                  <>
+                    <Loader2 size={16} className={handles.wizardSpinner} /> Enviando...
+                  </>
+                ) : step < 4 ? (
+                  <>Continuar <ChevronRight size={16} /></>
+                ) : (
+                  "Enviar solicitud"
+                )}
               </button>
             </div>
           </div>
         </section>
       </div>
+
+      {isDebug && (
+        <div className={handles.wizardDebugRow}>
+          {/* TODO(dev): botón trampa para pruebas rápidas, quitar antes de producción. */}
+          <button
+            type="button"
+            onClick={fillFakeData}
+            className={handles.wizardDebugBtn}
+          >
+            🧪 Rellenar datos de prueba
+          </button>
+        </div>
+      )}
     </div>
   );
 }
+
+ClubProfesionalWizard.defaultProps = {
+  infoPanelTitle: "Sobre el Club Profesional",
+  infoPanelText:
+    "Un programa DMujeres para profesionales de la belleza: estudiantes, independientes y dueños de negocio acceden a condiciones especiales para su actividad.",
+  infoStat1Value: "1–3 días hábiles",
+  infoStat1Label: "Tiempo de respuesta",
+  infoStat2Value: "1 documento",
+  infoStat2Label: "Para validar tu perfil",
+  benefits: [
+    "Hasta 15% off en tu cuenta profesional",
+    "Compras a 3 meses sin intereses",
+    "Envíos a nivel nacional",
+  ],
+  infoPolicyText:
+    "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada.",
+};

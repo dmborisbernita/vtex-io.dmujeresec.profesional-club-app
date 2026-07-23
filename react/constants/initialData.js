@@ -5,7 +5,7 @@ export const INITIAL_DATA = {
   tipoId: "cedula",
   numeroId: "",
   fechaNacimiento: "",
-  genero: "F",
+  genero: "",
   email: "",
   telefono: "",
   provincia: "",

@@ -4,6 +4,7 @@
   outline: none; transition: border-color 0.15s, box-shadow 0.15s;
 }
 .input:focus { border-color: var(--cp-pink); box-shadow: 0 0 0 3px rgba(227,28,95,0.15); }
+.input:placeholder-shown:hover { border-color: var(--cp-pink); background: #fff; }
 .inputError { border-color: var(--cp-danger); }
 .select { appearance: none; }
 .input:disabled { opacity: 0.55; cursor: not-allowed; }

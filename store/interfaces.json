@@ -24,6 +24,51 @@
           "title": "Texto de la promoción",
           "type": "string",
           "default": "Válido para cuentas nuevas aprobadas este mes."
+        },
+        "infoPanelTitle": {
+          "title": "Panel info: título",
+          "type": "string",
+          "default": "Sobre el Club Profesional"
+        },
+        "infoPanelText": {
+          "title": "Panel info: descripción",
+          "type": "string",
+          "default": "Un programa DMujeres para profesionales de la belleza: estudiantes, independientes y dueños de negocio acceden a condiciones especiales para su actividad."
+        },
+        "infoStat1Value": {
+          "title": "Panel info: valor tiempo de respuesta",
+          "type": "string",
+          "default": "1–3 días hábiles"
+        },
+        "infoStat1Label": {
+          "title": "Panel info: etiqueta tiempo de respuesta",
+          "type": "string",
+          "default": "Tiempo de respuesta"
+        },
+        "infoStat2Value": {
+          "title": "Panel info: valor documentos",
+          "type": "string",
+          "default": "1 documento"
+        },
+        "infoStat2Label": {
+          "title": "Panel info: etiqueta documentos",
+          "type": "string",
+          "default": "Para validar tu perfil"
+        },
+        "benefits": {
+          "title": "Panel info: beneficios",
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            "Hasta 15% off en tu cuenta profesional",
+            "Compras a 3 meses sin intereses",
+            "Envíos a nivel nacional"
+          ]
+        },
+        "infoPolicyText": {
+          "title": "Panel info: texto de política",
+          "type": "string",
+          "default": "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada."
         }
       }
     }

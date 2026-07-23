@@ -6,7 +6,18 @@ export function Landing({ onCta, heroTitle, heroSubtitle, promoTitle, promoText 
 
   return (
     <div className={handles.landingRoot}>
-      <section
+       <section className={handles.landingHero}>
+        {/* <span className={handles.landingEyebrow}>Club profesional DMujeres</span> */}
+        <h1 className={handles.landingH1}>{heroTitle}</h1>
+        <p className={handles.landingLead}>{heroSubtitle}</p> 
+      {/*   <div className={handles.landingBanner}>
+          <img
+            src="https://dmujeresec.vtexassets.com/assets/vtex.file-manager-graphql/images/1cce3351-b22c-4fc7-a2da-376e75f104fe___a3ceb4c69442287dfc6ccb9c479e27ea.png"
+            alt="Profesionales de belleza trabajando con productos DMujeres"
+          />
+        </div> */}
+      </section>
+  {/*     <section
         className={handles.landingPromo}
         style={{
           backgroundImage:
@@ -25,7 +36,7 @@ export function Landing({ onCta, heroTitle, heroSubtitle, promoTitle, promoText 
         >
           Completar solicitud
         </button>
-      </section>
+      </section> */}
     </div>
   );
 }
