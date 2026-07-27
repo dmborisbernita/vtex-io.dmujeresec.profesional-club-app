@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles, Info, Loader2, Clock, FileCheck, ShieldCheck } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles, Info, Loader2, Clock, CalendarCheck, ShieldCheck } from "lucide-react";
 import handles from "./ClubProfesionalWizard.css";
 import { Stepper } from "../Stepper";
 import { MembershipCard } from "../MembershipCard";
@@ -28,7 +28,11 @@ export function ClubProfesionalWizard({
   infoStat2Value,
   infoStat2Label,
   benefits,
+  infoTermsText,
   infoPolicyText,
+  heroTitle,
+  heroSubtitle,
+  promoText
 }) {
 
   const [step, setStep] = useState(1);
@@ -215,7 +219,7 @@ export function ClubProfesionalWizard({
                 </div>
               </div>
               <div className={handles.wizardInfoStat}>
-                <FileCheck size={16} strokeWidth={1.8} />
+                <CalendarCheck size={16} strokeWidth={1.8} />
                 <div>
                   <span className={handles.wizardInfoStatValue}>{infoStat2Value}</span>
                   <span className={handles.wizardInfoStatLabel}>{infoStat2Label}</span>
@@ -223,14 +227,20 @@ export function ClubProfesionalWizard({
               </div>
             </div>
 
+            <h3 className={handles.wizardInfoTitle}>Beneficios</h3>
             <ul className={handles.wizardBenefits}>
-              {benefits.map((text, i) => {
+              {benefits.map((benefit, i) => {
                 const BenefitIcon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
+                // Tolera contenido viejo guardado como string antes de que
+                // "benefits" pasara a ser un array de objetos { text }.
+                const text = typeof benefit === "string" ? benefit : benefit?.text;
                 return (
-                  <li key={i}><BenefitIcon size={15} strokeWidth={1.8} /> {text}</li>
+                  <li key={i}>{text}</li>
                 );
               })}
             </ul>
+
+            <small className={handles.wizardInfoDisclaimer}>{infoTermsText}</small>
 
             <p className={handles.wizardInfoPolicy}>
               <ShieldCheck size={14} strokeWidth={1.8} />
@@ -242,11 +252,10 @@ export function ClubProfesionalWizard({
 
         <section className={handles.wizardMain}>
           <header className={handles.wizardHeader}>
-            <span className={handles.wizardEyebrow}>Club profesional</span>
-            <h1 className={handles.wizardTitle}>Únete a la comunidad DMujeres</h1>
+            <span className={handles.wizardEyebrow}>{heroTitle}</span>
+            <h1 className={handles.wizardTitle}>{heroSubtitle}</h1>
             <p className={handles.wizardSubtitle}>
-              Completa tu solicitud en {STEPS.length} pasos y accede a beneficios exclusivos
-              para profesionales de la belleza.
+              {promoText} 
             </p>
           </header>
 
@@ -365,16 +374,17 @@ export function ClubProfesionalWizard({
 ClubProfesionalWizard.defaultProps = {
   infoPanelTitle: "Sobre el Club Profesional",
   infoPanelText:
-    "Un programa DMujeres para profesionales de la belleza: estudiantes, independientes y dueños de negocio acceden a condiciones especiales para su actividad.",
-  infoStat1Value: "1–3 días hábiles",
+    "Este club es un espacio pensado para quienes viven la belleza. Si eres profesional o estudiante de maquillaje, estilismo, barbería, manicura, cosmetología o áreas afines, aquí encontrarás beneficios exclusivos, descuentos especiales y el impulso que necesitas para seguir creciendo. Juntos haremos de tu pasión una historia de éxito",
+  infoStat1Value: "4 días hábiles",
   infoStat1Label: "Tiempo de respuesta",
-  infoStat2Value: "1 documento",
-  infoStat2Label: "Para validar tu perfil",
+  infoStat2Value: "Hasta 4 años",
+  infoStat2Label: "De vigencia según tu perfil",
   benefits: [
-    "Hasta 15% off en tu cuenta profesional",
-    "Compras a 3 meses sin intereses",
-    "Envíos a nivel nacional",
+    { text: "✨ 20% de descuento en tu primera compra" },
+    { text: "🎓 10% de descuento como estudiante, 15% como profesional — en todas tus compras" },
+    { text: "🎂 5% extra en tu cumpleaños (no acumulable con tu primera compra)" },
   ],
+  infoTermsText : "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.",
   infoPolicyText:
     "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada.",
 };

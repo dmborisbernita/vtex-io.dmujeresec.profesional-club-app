@@ -2,7 +2,8 @@
   "name": "club-profesional",
   "version": "0.1.0",
   "dependencies": {
-    "lucide-react": "^0.383.0"
+    "lucide-react": "^0.383.0",
+    "react-markdown": "^8.0.7"
   },
   "devDependencies": {
     "@types/react": "^16.9.11",

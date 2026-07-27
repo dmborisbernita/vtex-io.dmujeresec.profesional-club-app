@@ -1,27 +1,42 @@
 {
   "store.custom#club-profesional": {
+    "title": "Página Club Profesional",
     "blocks": [
       "rich-text#club-profesional-eyebrow",
-      /* "image#club-profesional-hero", */
       "flex-layout.row#imagen-banner-cp",
       "club-profesional"
     ]
   },
   "club-profesional": {
+    "title": "Formulario Club Profesional",
     "props": {
-      "heroTitle": "Hablemos de ti. Hablemos de tu cuenta profesional.",
-      "heroSubtitle": "Creamos el Club Profesional para estudiantes e independientes que viven de la belleza: precios especiales y beneficios pensados para tu día a día.",
-      "promoTitle": "20% adicional en tu primera compra profesional",
-      "promoText": "Válido para cuentas nuevas aprobadas este mes."
+      "heroTitle": "Club profesional",
+      "heroSubtitle": "Únete a la comunidad DMujeres",
+      "promoText": "Completa tu solicitud en 4 pasos y accede a beneficios exclusivos para profesionales de la belleza.",
+      "infoPanelTitle": "Sobre el Club Profesional",
+      "infoPanelText": "Este club es un espacio pensado para quienes viven la belleza. Si eres profesional o estudiante de maquillaje, estilismo, barbería, manicura, cosmetología o áreas afines, aquí encontrarás beneficios exclusivos, descuentos especiales y el impulso que necesitas para seguir creciendo. Juntos haremos de tu pasión una historia de éxito",
+      "infoStat1Value": "4 días hábiles",
+      "infoStat1Label": "Tiempo de respuesta",
+      "infoStat2Value": "Hasta 4 años",
+      "infoStat2Label": "De vigencia según tu perfil",
+      "benefits": [
+        { "text": "✨ 20% de descuento en tu primera compra" },
+        { "text": "🎓 10% de descuento como estudiante, 15% como profesional — en todas tus compras" },
+        { "text": "🎂 5% extra en tu cumpleaños (no acumulable con tu primera compra)" }
+      ],
+      "infoTermsText": "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.",
+      "infoPolicyText": "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada."
     }
   },
   "rich-text#club-profesional-eyebrow": {
+    "title": "Texto introductorio (eyebrow)",
     "props": {
       "text": "El mejor club para profesionales de la belleza",
       "blockClass": "club-profesional-eyebrow"
     }
   },
   "flex-layout.row#imagen-banner-cp": {
+    "title": "Banner de imagen",
     "children": [ "image#club-profesional-hero"],
     "props": {
       "blockClass": "imagen-banner-cp",
@@ -29,6 +44,7 @@
     }
   },
   "image#club-profesional-hero": {
+    "title": "Imagen del banner",
     "props": {
       "src": "https://dmujeresec.vtexassets.com/assets/vtex.file-manager-graphql/images/1cce3351-b22c-4fc7-a2da-376e75f104fe___a3ceb4c69442287dfc6ccb9c479e27ea.png",
       "alt": "Profesionales de belleza trabajando con productos DMujeres",

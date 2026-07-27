@@ -14,6 +14,7 @@ function ClubProfesional({
   infoStat2Value,
   infoStat2Label,
   benefits,
+  infoTermsText,
   infoPolicyText,
 }) {
   const formRef = useRef(null);
@@ -24,13 +25,6 @@ function ClubProfesional({
 
   return (
     <div>
-  {/*     <Landing
-        onCta={scrollToForm}
-        heroTitle={heroTitle}
-        heroSubtitle={heroSubtitle}
-        promoTitle={promoTitle}
-        promoText={promoText}
-      /> */}
       <div ref={formRef} id="formulario">
         <ClubProfesionalWizard
           infoPanelTitle={infoPanelTitle}
@@ -40,7 +34,11 @@ function ClubProfesional({
           infoStat2Value={infoStat2Value}
           infoStat2Label={infoStat2Label}
           benefits={benefits}
+          infoTermsText = {infoTermsText}
           infoPolicyText={infoPolicyText}
+          heroTitle={heroTitle}
+          heroSubtitle={heroSubtitle}
+          promoText={promoText}
         />
       </div>
     </div>
@@ -48,11 +46,9 @@ function ClubProfesional({
 }
 
 ClubProfesional.defaultProps = {
-  heroTitle: "Hablemos de ti. Hablemos de tu cuenta profesional.",
-  heroSubtitle:
-    "Creamos el Club Profesional para estudiantes e independientes que viven de la belleza: precios especiales y beneficios pensados para tu día a día.",
-  promoTitle: "20% adicional en tu primera compra profesional",
-  promoText: "Válido para cuentas nuevas aprobadas este mes.",
+  heroTitle: "Club profesional",
+  heroSubtitle:"Únete a la comunidad DMujeres",
+  promoText: "Completa tu solicitud en 4 pasos y accede a beneficios exclusivos para profesionales de la belleza.",
   ...ClubProfesionalWizard.defaultProps,
 };
 
@@ -61,21 +57,27 @@ ClubProfesional.schema = {
   title: "Club Profesional",
   type: "object",
   properties: {
-    heroTitle: { title: "Título principal", type: "string" },
-    heroSubtitle: { title: "Subtítulo", type: "string" },
-    promoTitle: { title: "Título de la promoción", type: "string" },
-    promoText: { title: "Texto de la promoción", type: "string" },
+    heroTitle: { title: "Título del Formulario", type: "string" },
+    heroSubtitle: { title: "Subtítulo del Formulario", type: "string" },
+    promoText: { title: "Texto del Formulario", type: "string" },
     infoPanelTitle: { title: "Panel info: título", type: "string" },
     infoPanelText: { title: "Panel info: descripción", type: "string" },
-    infoStat1Value: { title: "Panel info: valor tiempo de respuesta", type: "string" },
-    infoStat1Label: { title: "Panel info: etiqueta tiempo de respuesta", type: "string" },
-    infoStat2Value: { title: "Panel info: valor documentos", type: "string" },
-    infoStat2Label: { title: "Panel info: etiqueta documentos", type: "string" },
+    infoStat1Value: { title: "Panel info: valor 1", type: "string" },
+    infoStat1Label: { title: "Panel info: etiqueta 1", type: "string" },
+    infoStat2Value: { title: "Panel info: valor 2", type: "string" },
+    infoStat2Label: { title: "Panel info: etiqueta 2", type: "string" },
     benefits: {
       title: "Panel info: beneficios",
       type: "array",
-      items: { type: "string" },
+      items: {
+        title: "Beneficio",
+        type: "object",
+        properties: {
+          text: { title: "Texto", type: "string" },
+        },
+      },
     },
+    infoTermsText: { title: "Panel info: texto de términos", type: "string" },
     infoPolicyText: { title: "Panel info: texto de política", type: "string" },
   },
 };

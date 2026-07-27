@@ -141,3 +141,6 @@
 .wizardSuccessTitle { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 22px; color: var(--cp-black); margin: 0; }
 .wizardSuccessText { color: var(--cp-ink-soft); font-size: 14px; line-height: 1.6; margin: 0 0 0.5rem; }
 .wizardSuccessCard { width: 100%; max-width: 340px; margin: 0.5rem 0 1rem; }
+.wizardInfoDisclaimer{
+  font-size: 8px; color: var(--cp-ink-soft); line-height: 1.4; text-align: center;;
+}
