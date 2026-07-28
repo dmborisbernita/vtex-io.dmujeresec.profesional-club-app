@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Check, ChevronRight, ChevronLeft, CreditCard, MapPin, Sparkles, Info, Loader2, Clock, CalendarCheck, ShieldCheck } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Info, Loader2, Clock, CalendarCheck, ShieldCheck } from "lucide-react";
 import handles from "./ClubProfesionalWizard.css";
 import { Stepper } from "../Stepper";
 import { MembershipCard } from "../MembershipCard";
@@ -18,8 +18,6 @@ import { INITIAL_DATA } from "../../constants/initialData";
 import { useRecaptcha } from "../../hooks/useRecaptcha";
 import { validateStep } from "../../utils/validateStep";
 
-const BENEFIT_ICONS = [Sparkles, CreditCard, MapPin];
-
 export function ClubProfesionalWizard({
   infoPanelTitle,
   infoPanelText,
@@ -27,7 +25,6 @@ export function ClubProfesionalWizard({
   infoStat1Label,
   infoStat2Value,
   infoStat2Label,
-  benefits,
   infoTermsText,
   infoPolicyText,
   heroTitle,
@@ -205,11 +202,11 @@ export function ClubProfesionalWizard({
       <div className={handles.wizardGrid}>
         <aside className={handles.wizardAside}>
           
-
+         
           <div className={handles.wizardInfoPanel}>
             <h3 className={handles.wizardInfoTitle}>{infoPanelTitle}</h3>
             <p className={handles.wizardInfoText}>{infoPanelText}</p>
-
+             <MembershipCard data={data} progress={progress} />
             <div className={handles.wizardInfoStats}>
               <div className={handles.wizardInfoStat}>
                 <Clock size={16} strokeWidth={1.8} />
@@ -227,19 +224,6 @@ export function ClubProfesionalWizard({
               </div>
             </div>
 
-            <h3 className={handles.wizardInfoTitle}>Beneficios</h3>
-            <ul className={handles.wizardBenefits}>
-              {benefits.map((benefit, i) => {
-                const BenefitIcon = BENEFIT_ICONS[i % BENEFIT_ICONS.length];
-                // Tolera contenido viejo guardado como string antes de que
-                // "benefits" pasara a ser un array de objetos { text }.
-                const text = typeof benefit === "string" ? benefit : benefit?.text;
-                return (
-                  <li key={i}>{text}</li>
-                );
-              })}
-            </ul>
-
             <small className={handles.wizardInfoDisclaimer}>{infoTermsText}</small>
 
             <p className={handles.wizardInfoPolicy}>
@@ -247,7 +231,7 @@ export function ClubProfesionalWizard({
               {infoPolicyText}
             </p>
           </div>
-          {/* <MembershipCard data={data} progress={progress} /> */}
+          
         </aside>
 
         <section className={handles.wizardMain}>
@@ -379,11 +363,6 @@ ClubProfesionalWizard.defaultProps = {
   infoStat1Label: "Tiempo de respuesta",
   infoStat2Value: "Hasta 4 años",
   infoStat2Label: "De vigencia según tu perfil",
-  benefits: [
-    { text: "✨ 20% de descuento en tu primera compra" },
-    { text: "🎓 10% de descuento como estudiante, 15% como profesional — en todas tus compras" },
-    { text: "🎂 5% extra en tu cumpleaños (no acumulable con tu primera compra)" },
-  ],
   infoTermsText : "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.",
   infoPolicyText:
     "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada.",

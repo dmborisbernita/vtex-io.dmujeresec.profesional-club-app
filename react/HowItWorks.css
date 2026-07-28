@@ -1,0 +1,134 @@
+.howItWorksRoot {
+  --hiw-pink: #E31C5F;
+  --hiw-black: #1A1A1A;
+  --hiw-ink-soft: #6B6B6B;
+  --hiw-line: #E6E6E6;
+  font-family: 'Inter', -apple-system, sans-serif;
+  max-width: 1040px;
+  margin: 0 auto;
+  background: #F6F6F6;
+  padding: 1.5rem 1.25rem 1rem;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+.howItWorksRoot * { box-sizing: border-box; }
+
+.howItWorksTitle {
+  text-align: center;
+  margin: 0 0 2.25rem;
+}
+.howItWorksTitleText {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 22px);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--hiw-black);
+}
+.howItWorksTitleText::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--hiw-pink);
+}
+
+.howItWorksGrid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+}
+
+.howItWorksStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  width: 190px;
+  flex-shrink: 0;
+}
+
+.howItWorksIconWrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(227, 28, 95, 0.28);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.howItWorksIcon {
+  color: var(--hiw-black);
+}
+
+.howItWorksLine1 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--hiw-black);
+}
+
+.howItWorksLine2 {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--hiw-ink-soft);
+  max-width: 190px;
+}
+
+.howItWorksConnector {
+  flex: 1 1 24px;
+  min-width: 24px;
+  max-width: 64px;
+  height: 0;
+  margin-top: 30px;
+  border-top: 2px dashed var(--hiw-pink);
+  position: relative;
+}
+.howItWorksConnector::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--hiw-pink);
+  border-right: 2px solid var(--hiw-pink);
+  transform: rotate(45deg);
+}
+
+@media (max-width: 860px) {
+  .howItWorksGrid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .howItWorksStep {
+    width: 100%;
+    max-width: 320px;
+  }
+  .howItWorksConnector {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .howItWorksRoot {
+    margin: 0 1rem;
+    padding: 1.25rem 1rem 0.75rem;
+  }
+}

@@ -14,7 +14,7 @@
   font-family: 'Inter', -apple-system, sans-serif;
   color: var(--cp-ink);
   background: var(--cp-bg);
-  padding: 2.5rem 1.25rem;
+  padding: 1.75rem 1.25rem 2.5rem;
   border-radius: 20px;
   box-sizing: border-box;
 }
@@ -24,7 +24,7 @@
   max-width: 1040px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 360px 1fr;
   gap: 2.5rem;
   align-items: start;
 }
@@ -33,7 +33,7 @@
 /*   .wizardAside { order: 2; }
   .wizardMain { order: 1; } */
   .wizardShell {
-  padding: 1.25rem 1.25rem;
+  padding: 0.75rem 1.25rem 1.25rem;
 
 }
 }
@@ -41,15 +41,8 @@
 .wizardAside { position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 1.25rem; }
 @media (max-width: 860px) { .wizardAside { position: static; } }
 
-.wizardBenefits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
-.wizardBenefits li {
-  display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--cp-ink-soft);
-  background: #fff; border: 1px solid var(--cp-line); border-radius: 10px; padding: 0.6rem 0.75rem;
-}
-.wizardBenefits li svg { color: var(--cp-pink); flex-shrink: 0; }
-
 .wizardInfoPanel {
-  background: var(--cp-bg-soft);
+  background: #FBF6F7;
   border: 1px solid var(--cp-line);
   border-radius: 16px;
   padding: 1.1rem 1.15rem 1.25rem;

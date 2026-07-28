@@ -13,7 +13,6 @@ function ClubProfesional({
   infoStat1Label,
   infoStat2Value,
   infoStat2Label,
-  benefits,
   infoTermsText,
   infoPolicyText,
 }) {
@@ -33,7 +32,6 @@ function ClubProfesional({
           infoStat1Label={infoStat1Label}
           infoStat2Value={infoStat2Value}
           infoStat2Label={infoStat2Label}
-          benefits={benefits}
           infoTermsText = {infoTermsText}
           infoPolicyText={infoPolicyText}
           heroTitle={heroTitle}
@@ -66,17 +64,6 @@ ClubProfesional.schema = {
     infoStat1Label: { title: "Panel info: etiqueta 1", type: "string" },
     infoStat2Value: { title: "Panel info: valor 2", type: "string" },
     infoStat2Label: { title: "Panel info: etiqueta 2", type: "string" },
-    benefits: {
-      title: "Panel info: beneficios",
-      type: "array",
-      items: {
-        title: "Beneficio",
-        type: "object",
-        properties: {
-          text: { title: "Texto", type: "string" },
-        },
-      },
-    },
     infoTermsText: { title: "Panel info: texto de términos", type: "string" },
     infoPolicyText: { title: "Panel info: texto de política", type: "string" },
   },

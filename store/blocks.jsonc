@@ -2,10 +2,72 @@
   "store.custom#club-profesional": {
     "title": "Página Club Profesional",
     "blocks": [
-      "rich-text#club-profesional-eyebrow",
+     /*  "rich-text#club-profesional-eyebrow", */
       "flex-layout.row#imagen-banner-cp",
+      "club-profesional-why-join",
+      "club-profesional-how-it-works",
       "club-profesional"
     ]
+  },
+  "club-profesional-why-join": {
+    "title": "Por qué unirte (tarjetas)",
+    "props": {
+      "title": "¿Por qué unirte?",
+      "cards": [
+        {
+          "icon": "star",
+          "line1": "20% de descuento",
+          "line2": "en tu primera compra",
+          "hoverText": "Aplica en tu primera compra al unirte al club."
+        },
+        {
+          "icon": "gift",
+          "line1": "Beneficios especiales",
+          "line2": "en tu cumpleaños",
+          "hoverText": "Recibe un descuento especial durante tu mes de cumpleaños."
+        },
+        {
+          "icon": "tag",
+          "line1": "Descuentos y promociones",
+          "line2": "permanentes todo el año",
+          "hoverText": "10% de descuento como estudiante, 15% como profesional."
+        },
+        {
+          "icon": "shield-check",
+          "line1": "Validación rápida",
+          "line2": "y segura",
+          "hoverText": "Tu solicitud se valida de forma rápida y segura."
+        }
+      ]
+    }
+  },
+  "club-profesional-how-it-works": {
+    "title": "Cómo funciona (pasos)",
+    "props": {
+      "title": "¿Cómo funciona?",
+      "steps": [
+        {
+          "icon": "user",
+          "line1": "Completa tus datos",
+          "line2": "Ingresa tu información personal y de contacto."
+        },
+        {
+          "icon": "graduation-cap",
+          "line1": "Cuéntanos tu perfil",
+          "line2": "Indica tu actividad profesional y datos de tu negocio."
+        },
+        {
+          "icon": "monitor",
+          "line1": "Validamos tu información",
+          "line2": "Revisamos tus datos para confirmar tu perfil profesional."
+        },
+        {
+          "icon": "check-circle",
+          "line1": "Activas tu membresía",
+          "line2": "Recibe tu confirmación y comienza a disfrutar de tus beneficios."
+        }
+      ]
+    }
   },
   "club-profesional": {
     "title": "Formulario Club Profesional",
@@ -19,11 +81,6 @@
       "infoStat1Label": "Tiempo de respuesta",
       "infoStat2Value": "Hasta 4 años",
       "infoStat2Label": "De vigencia según tu perfil",
-      "benefits": [
-        { "text": "✨ 20% de descuento en tu primera compra" },
-        { "text": "🎓 10% de descuento como estudiante, 15% como profesional — en todas tus compras" },
-        { "text": "🎂 5% extra en tu cumpleaños (no acumulable con tu primera compra)" }
-      ],
       "infoTermsText": "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.",
       "infoPolicyText": "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada."
     }
@@ -40,7 +97,8 @@
     "children": [ "image#club-profesional-hero"],
     "props": {
       "blockClass": "imagen-banner-cp",
-      "fullWidth": true
+      "fullWidth": true,
+      "marginTop": 6
     }
   },
   "image#club-profesional-hero": {

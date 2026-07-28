@@ -1,5 +1,11 @@
 {
   "club-profesional": {
     "component": "ClubProfesional"
+  },
+  "club-profesional-why-join": {
+    "component": "WhyJoinCards"
+  },
+  "club-profesional-how-it-works": {
+    "component": "HowItWorks"
   }
 }
