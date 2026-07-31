@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Check, ChevronRight, ChevronLeft, Info, Loader2, Clock, CalendarCheck, ShieldCheck } from "lucide-react";
+import { Check, ChevronRight, ChevronLeft, Info, Loader2, Clock, CalendarCheck, ShieldCheck, Contact, X } from "lucide-react";
 import handles from "./ClubProfesionalWizard.css";
 import { Stepper } from "../Stepper";
 import { MembershipCard } from "../MembershipCard";
@@ -7,6 +7,7 @@ import { StepIdentidad } from "./steps/StepIdentidad";
 import { StepContacto } from "./steps/StepContacto";
 import { StepPerfil } from "./steps/StepPerfil";
 import { StepConfirmar } from "./steps/StepConfirmar";
+import { Field, TextInput } from "../fields";
 import {
   STEPS,
   STEP_INFO,
@@ -38,6 +39,7 @@ export function ClubProfesionalWizard({
   const [submitError, setSubmitError] = useState(null);
   const [data, setData] = useState(INITIAL_DATA);
   const [errors, setErrors] = useState({});
+  const [vendorModalOpen, setVendorModalOpen] = useState(false);
   const { getToken } = useRecaptcha();
 
   // Evitamos URLSearchParams: el render SSR de VTEX IO expone un `window`/`location`
@@ -46,6 +48,15 @@ export function ClubProfesionalWizard({
     typeof window !== "undefined" &&
     typeof window.location?.search === "string" &&
     /(?:^|[?&])debug=1(?:&|$)/.test(window.location.search);
+
+  // "Modo vendedor": gestionado por una vendedora de tienda en nombre de la
+  // clienta, a diferencia del flujo autogestionado (clienta final sola). La
+  // única diferencia visible es este campo -- el resto del formulario es
+  // idéntico. Autogestionado nunca ve el campo y siempre manda "000".
+  const isVendorMode =
+    typeof window !== "undefined" &&
+    typeof window.location?.search === "string" &&
+    /(?:^|[?&])modo=vendedor(?:&|$)/.test(window.location.search);
 
   function readFileAsBase64(file) {
     return new Promise((resolve, reject) => {
@@ -99,6 +110,10 @@ export function ClubProfesionalWizard({
           tipoSolicitud: data.tipoSolicitud === "propietario" ? "negocio" : data.tipoSolicitud,
           documentos,
           recaptchaToken,
+          // Autogestionado (sin ?modo=vendedor) siempre manda "WEB". En modo
+          // vendedor manda el código real, o "000" si la vendedora aún no lo
+          // completó.
+          vendedorCodigo: isVendorMode ? data.vendedorCodigo.trim() || "000" : "WEB",
         }),
       });
       if (!res.ok) {
@@ -121,7 +136,10 @@ export function ClubProfesionalWizard({
   }
 
   function resetForm() {
-    setData(INITIAL_DATA);
+    // El código de vendedor se conserva entre solicitudes seguidas (misma
+    // vendedora atendiendo varias clientas); solo se pierde si lo borra ella
+    // misma, o si se refresca/cierra la página (vive únicamente en este estado).
+    setData((d) => ({ ...INITIAL_DATA, vendedorCodigo: d.vendedorCodigo }));
     setErrors({});
     setSubmitError(null);
     setStep(1);
@@ -339,16 +357,79 @@ export function ClubProfesionalWizard({
         </section>
       </div>
 
-      {isDebug && (
-        <div className={handles.wizardDebugRow}>
-          {/* TODO(dev): botón trampa para pruebas rápidas, quitar antes de producción. */}
-          <button
-            type="button"
-            onClick={fillFakeData}
-            className={handles.wizardDebugBtn}
+      {(isDebug || isVendorMode) && (
+        <div className={handles.wizardFabStack}>
+          {isDebug && (
+            // TODO(dev): botón trampa para pruebas rápidas, quitar antes de producción.
+            <button
+              type="button"
+              onClick={fillFakeData}
+              className={handles.wizardDebugBtn}
+            >
+              🧪 Rellenar datos de prueba
+            </button>
+          )}
+
+          {isVendorMode && (
+            <button
+              type="button"
+              className={handles.wizardVendorFab}
+              data-filled={Boolean(data.vendedorCodigo.trim())}
+              onClick={() => setVendorModalOpen(true)}
+            >
+              <Contact size={15} strokeWidth={1.8} />
+              {data.vendedorCodigo.trim() || "¿Ingresa tu código de vendedor?"}
+            </button>
+          )}
+        </div>
+      )}
+
+      {isVendorMode && vendorModalOpen && (
+        <div
+          className={handles.wizardVendorModalOverlay}
+          onClick={() => setVendorModalOpen(false)}
+        >
+          <div
+            className={handles.wizardVendorModal}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Código de vendedor"
+            onClick={(e) => e.stopPropagation()}
           >
-            🧪 Rellenar datos de prueba
-          </button>
+            <div className={handles.wizardVendorModalHeader}>
+              <h3 className={handles.wizardVendorModalTitle}>
+                <Contact size={16} strokeWidth={1.8} />
+                Código de vendedor
+              </h3>
+              <button
+                type="button"
+                className={handles.wizardVendorModalClose}
+                onClick={() => setVendorModalOpen(false)}
+                aria-label="Cerrar"
+              >
+                <X size={18} strokeWidth={1.8} />
+              </button>
+            </div>
+            <Field hint="Solo visible en modo vendedor de tienda. Si la clienta se autogestiona, no debe completarse.">
+              <TextInput
+                autoFocus
+                value={data.vendedorCodigo}
+                onChange={(v) => update("vendedorCodigo", v)}
+                placeholder="Ej. 0184"
+                maxLength={20}
+                disabled={submitting}
+              />
+            </Field>
+            <div className={handles.wizardVendorModalActions}>
+              <button
+                type="button"
+                className={`${handles.wizardBtn} ${handles.wizardBtnPrimary}`}
+                onClick={() => setVendorModalOpen(false)}
+              >
+                Listo
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

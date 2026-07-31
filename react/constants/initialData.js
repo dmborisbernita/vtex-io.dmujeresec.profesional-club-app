@@ -23,4 +23,7 @@ export const INITIAL_DATA = {
   documentos: [],
   consentimiento: false,
   website: "", // honeypot: debe llegar siempre vacío. Los bots suelen autocompletarlo.
+  // Solo se edita en "modo vendedor" (?modo=vendedor, ver ClubProfesionalWizard);
+  // en autogestión queda vacío y se envía "000" (ver goNext).
+  vendedorCodigo: "",
 };

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Upload, FileText, X } from "lucide-react";
 import handles from "./Step.css";
 import { Field } from "../../fields";
 import { TIPO_SOLICITUD_OPTIONS } from "../../../constants/catalog";
+import { MAX_TOTAL_DOCUMENTOS_BYTES } from "../../../constants/uploads";
+import { getAllowedExtensions, validateDocumentos, formatMB } from "../../../utils/uploadValidation";
 
 function formatSize(bytes) {
   if (bytes < 1024) return `${bytes} B`;
@@ -11,16 +13,37 @@ function formatSize(bytes) {
 }
 
 export function StepConfirmar({ data, errors, update, docOptions }) {
-  const accept =
-    data.tipoSolicitud === "propietario" ? ".pdf,application/pdf" : "image/*,.pdf";
+  const [fileError, setFileError] = useState(null);
+  const allowedExtensions = getAllowedExtensions(data.tipoSolicitud);
+  const accept = allowedExtensions.map((ext) => `.${ext}`).join(",");
+
+  function handleFileChange(e) {
+    const incoming = Array.from(e.target.files);
+    const error = validateDocumentos(incoming, data.tipoSolicitud);
+    if (error) {
+      setFileError(error);
+    } else {
+      setFileError(null);
+      update("documentos", incoming);
+    }
+    // Permite volver a elegir el mismo archivo (ya corregido) sin que el
+    // navegador ignore el cambio por ser "la misma" selección.
+    e.target.value = "";
+  }
 
   function removeDocumento(index) {
     update("documentos", data.documentos.filter((_, i) => i !== index));
+    setFileError(null);
   }
 
   return (
     <div className={handles.stepContent}>
-      <Field label="Documentos de respaldo" required error={errors.documentos}>
+      <Field
+        label="Documentos de respaldo"
+        required
+        error={fileError || errors.documentos}
+        hint={`Formatos permitidos: ${allowedExtensions.map((e) => e.toUpperCase()).join(", ")} · Máximo ${formatMB(MAX_TOTAL_DOCUMENTOS_BYTES)} MB en total`}
+      >
         {docOptions && (
           <div className={handles.docOptionsBox}>
             <span className={handles.docOptionsTitle}>
@@ -42,7 +65,7 @@ export function StepConfirmar({ data, errors, update, docOptions }) {
           multiple
           accept={accept}
           className={handles.fileInput}
-          onChange={(e) => update("documentos", Array.from(e.target.files))}
+          onChange={handleFileChange}
         />
         {data.documentos.length > 0 && (
           <ul className={handles.fileList}>

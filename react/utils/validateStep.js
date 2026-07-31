@@ -1,4 +1,5 @@
 import { isValidCedula, isValidRuc, isAdult } from "./validators";
+import { validateDocumentos } from "./uploadValidation";
 
 const MIN_EDAD = 18;
 
@@ -49,8 +50,12 @@ export function validateStep(current, data) {
     }
   }
   if (current === 4) {
-    if (data.documentos.length === 0)
+    if (data.documentos.length === 0) {
       e.documentos = "Adjunta al menos un documento";
+    } else {
+      const docError = validateDocumentos(data.documentos, data.tipoSolicitud);
+      if (docError) e.documentos = docError;
+    }
     if (!data.consentimiento)
       e.consentimiento = "Debes aceptar el tratamiento de datos para continuar";
   }

@@ -23,6 +23,9 @@ export interface RegistrationPayload {
   actividadIndependiente?: string;
   actividadNegocio?: string;
   documentos: Array<{ nombre: string; contenido: string }>;
+  // "WEB" para solicitudes autogestionadas; en "modo vendedor" (ver
+  // ClubProfesionalWizard) lleva el código real, o "000" si aún no se completó.
+  vendedorCodigo: string;
 }
 
 interface RegistrationResponse {

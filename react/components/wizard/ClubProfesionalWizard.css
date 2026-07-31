@@ -72,12 +72,67 @@
 }
 .wizardInfoPolicy svg { color: var(--cp-pink); flex-shrink: 0; margin-top: 1px; }
 
-.wizardDebugRow { max-width: 1040px; margin: 1.5rem auto 0; display: flex; justify-content: center; }
+.wizardFabStack {
+  /* sticky (no fixed) para que solo "flote" mientras el wizard está en pantalla:
+     se ancla a 1.25rem del fondo del viewport mientras se hace scroll dentro del
+     wizardShell, y se suelta apenas se llega al final del contenedor (siendo el
+     último hijo de wizardShell, eso coincide con el final del wizard). */
+  position: sticky; bottom: 1.25rem; z-index: 20;
+  margin-left: auto; width: fit-content;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem;
+}
+
 .wizardDebugBtn {
-  font-size: 12px; font-family: inherit; padding: 6px 12px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-family: inherit; font-weight: 600; line-height: 1.2;
+  padding: 0.7rem 1rem; border-radius: 999px;
   border: 1px dashed var(--cp-pink); background: var(--cp-pink-tint); color: var(--cp-pink-dark);
+  box-shadow: 0 6px 18px rgba(227, 28, 95, 0.18);
   cursor: pointer;
 }
+.wizardDebugBtn:hover { background: #fff; }
+.wizardDebugBtn:active { transform: scale(0.97); }
+
+.wizardVendorFab {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: inherit; font-size: 12.5px; font-weight: 600; line-height: 1.2;
+  padding: 0.7rem 1rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--cp-pink); background: var(--cp-pink); color: #fff;
+  box-shadow: 0 6px 18px rgba(227, 28, 95, 0.35);
+  transition: transform 0.1s, background 0.15s;
+}
+.wizardVendorFab:hover { background: var(--cp-pink-dark); }
+.wizardVendorFab:active { transform: scale(0.97); }
+.wizardVendorFab[data-filled="false"] {
+  background: #fff; color: var(--cp-pink-dark);
+  animation: wizardVendorPulse 1.8s ease-in-out infinite;
+}
+.wizardVendorFab[data-filled="false"]:hover { background: var(--cp-pink-tint); animation: none; }
+@keyframes wizardVendorPulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(227, 28, 95, 0.35); }
+  50% { box-shadow: 0 6px 22px rgba(227, 28, 95, 0.7), 0 0 0 5px rgba(227, 28, 95, 0.12); }
+}
+
+.wizardVendorModalOverlay {
+  position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center;
+  background: rgba(26, 26, 26, 0.45); padding: 1.25rem;
+}
+.wizardVendorModal {
+  width: 100%; max-width: 360px; background: #fff; border-radius: 16px;
+  padding: 1.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+.wizardVendorModalHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.wizardVendorModalTitle {
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 15.5px; color: var(--cp-black); margin: 0;
+  display: flex; align-items: center; gap: 7px;
+}
+.wizardVendorModalTitle svg { color: var(--cp-pink); }
+.wizardVendorModalClose {
+  border: none; background: transparent; color: var(--cp-ink-soft); cursor: pointer;
+  display: flex; align-items: center; padding: 2px;
+}
+.wizardVendorModalClose:hover { color: var(--cp-black); }
+.wizardVendorModalActions { display: flex; justify-content: flex-end; margin-top: 1.25rem; }
 
 .wizardHeader { margin-bottom: 1.5rem; }
 .wizardEyebrow { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cp-pink); font-weight: 600; }
