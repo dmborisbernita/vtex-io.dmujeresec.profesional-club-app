@@ -3,7 +3,9 @@
 
 function isValidProvinceCode(numero) {
   const provincia = parseInt(numero.slice(0, 2), 10);
-  return provincia >= 1 && provincia <= 24;
+  // 30 es el código que el Registro Civil asigna a cédulas de personas
+  // nacionalizadas/extranjeras (no está atado a ninguna de las 24 provincias).
+  return (provincia >= 1 && provincia <= 24) || provincia === 30;
 }
 
 function isValidTercerDigito(numero, max) {

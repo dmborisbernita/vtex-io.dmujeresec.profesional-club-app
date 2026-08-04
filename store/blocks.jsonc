@@ -2,7 +2,6 @@
   "store.custom#club-profesional": {
     "title": "Página Club Profesional",
     "blocks": [
-     /*  "rich-text#club-profesional-eyebrow", */
       "flex-layout.row#imagen-banner-cp",
       "club-profesional-why-join",
       "club-profesional-how-it-works",
@@ -81,15 +80,23 @@
       "infoStat1Label": "Tiempo de respuesta",
       "infoStat2Value": "Hasta 4 años",
       "infoStat2Label": "De vigencia según tu perfil",
-      "infoTermsText": "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.",
-      "infoPolicyText": "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada."
-    }
-  },
-  "rich-text#club-profesional-eyebrow": {
-    "title": "Texto introductorio (eyebrow)",
-    "props": {
-      "text": "El mejor club para profesionales de la belleza",
-      "blockClass": "club-profesional-eyebrow"
+      "infoTermsText": "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.\n*solo aplica para tiendas fisicas",
+      "infoPolicyText": "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada.",
+      "actividadesIndependiente": [
+        "Maquillador",
+        "Técnico capilar",
+        "Técnico en uñas",
+        "Técnico integral",
+        "Especialista en cuidado de la piel",
+        "Barbero"
+      ],
+      "actividadesNegocio": [
+        "Barbería",
+        "Peluquería",
+        "Estudio de maquillaje",
+        "Salón de uñas",
+        "Centro estético"
+      ]
     }
   },
   "flex-layout.row#imagen-banner-cp": {

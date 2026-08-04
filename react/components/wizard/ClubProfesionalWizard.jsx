@@ -8,6 +8,7 @@ import { StepContacto } from "./steps/StepContacto";
 import { StepPerfil } from "./steps/StepPerfil";
 import { StepConfirmar } from "./steps/StepConfirmar";
 import { Field, TextInput } from "../fields";
+import { RichText } from "../RichText";
 import {
   STEPS,
   STEP_INFO,
@@ -30,14 +31,28 @@ export function ClubProfesionalWizard({
   infoPolicyText,
   heroTitle,
   heroSubtitle,
-  promoText
+  promoText,
+  actividadesIndependiente,
+  actividadesNegocio,
 }) {
+  // Si el Site Editor guarda un array vacío, volvemos al catálogo por defecto
+  // en vez de dejar el select sin opciones.
+  const actividadesIndependienteList = actividadesIndependiente?.length
+    ? actividadesIndependiente
+    : ACTIVIDADES_INDEPENDIENTE;
+  const actividadesNegocioList = actividadesNegocio?.length
+    ? actividadesNegocio
+    : ACTIVIDADES_NEGOCIO;
 
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
-  const [data, setData] = useState(INITIAL_DATA);
+  const [data, setData] = useState(() => ({
+    ...INITIAL_DATA,
+    actividadIndependiente: actividadesIndependienteList[0],
+    actividadNegocio: actividadesNegocioList[0],
+  }));
   const [errors, setErrors] = useState({});
   const [vendorModalOpen, setVendorModalOpen] = useState(false);
   const { getToken } = useRecaptcha();
@@ -105,9 +120,6 @@ export function ClubProfesionalWizard({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...dataToSend,
-          // El backend solo conoce "negocio"; "propietario" es el label/valor
-          // que usa la UI para ese mismo perfil.
-          tipoSolicitud: data.tipoSolicitud === "propietario" ? "negocio" : data.tipoSolicitud,
           documentos,
           recaptchaToken,
           // Autogestionado (sin ?modo=vendedor) siempre manda "WEB". En modo
@@ -139,7 +151,12 @@ export function ClubProfesionalWizard({
     // El código de vendedor se conserva entre solicitudes seguidas (misma
     // vendedora atendiendo varias clientas); solo se pierde si lo borra ella
     // misma, o si se refresca/cierra la página (vive únicamente en este estado).
-    setData((d) => ({ ...INITIAL_DATA, vendedorCodigo: d.vendedorCodigo }));
+    setData((d) => ({
+      ...INITIAL_DATA,
+      actividadIndependiente: actividadesIndependienteList[0],
+      actividadNegocio: actividadesNegocioList[0],
+      vendedorCodigo: d.vendedorCodigo,
+    }));
     setErrors({});
     setSubmitError(null);
     setStep(1);
@@ -165,10 +182,10 @@ export function ClubProfesionalWizard({
       academiaDireccion: "Av. 10 de Agosto",
       academiaTelefono: "0987654321",
       fechaGraduacion: "2024-12-15",
-      actividadIndependiente: ACTIVIDADES_INDEPENDIENTE[0],
+      actividadIndependiente: actividadesIndependienteList[0],
       negocioNombre: "Salón Bella Vita",
       negocioRuc: "1792060346001",
-      actividadNegocio: ACTIVIDADES_NEGOCIO[0],
+      actividadNegocio: actividadesNegocioList[0],
       documentos: [],
     });
     setErrors({});
@@ -242,7 +259,9 @@ export function ClubProfesionalWizard({
               </div>
             </div>
 
-            <small className={handles.wizardInfoDisclaimer}>{infoTermsText}</small>
+            <small className={handles.wizardInfoDisclaimer}>
+              <RichText>{infoTermsText}</RichText>
+            </small>
 
             <p className={handles.wizardInfoPolicy}>
               <ShieldCheck size={14} strokeWidth={1.8} />
@@ -291,7 +310,15 @@ export function ClubProfesionalWizard({
             />
             {step === 1 && <StepIdentidad data={data} errors={errors} update={update} />}
             {step === 2 && <StepContacto data={data} errors={errors} update={update} />}
-            {step === 3 && <StepPerfil data={data} errors={errors} update={update} />}
+            {step === 3 && (
+              <StepPerfil
+                data={data}
+                errors={errors}
+                update={update}
+                actividadesIndependiente={actividadesIndependienteList}
+                actividadesNegocio={actividadesNegocioList}
+              />
+            )}
             {step === 4 && (
               <StepConfirmar
                 data={data}
@@ -447,4 +474,6 @@ ClubProfesionalWizard.defaultProps = {
   infoTermsText : "*Aplican términos y condiciones. 20% OFF en primera compra excluye sillonería, eléctricos, packs y marca Astra.",
   infoPolicyText:
     "Tus datos y documentos se usan solo para validar tu perfil, conforme a la Ley Orgánica de Protección de Datos Personales. La membresía se activa una vez que tu solicitud es aprobada.",
+  actividadesIndependiente: ACTIVIDADES_INDEPENDIENTE,
+  actividadesNegocio: ACTIVIDADES_NEGOCIO,
 };

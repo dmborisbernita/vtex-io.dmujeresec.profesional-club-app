@@ -7,7 +7,13 @@ import {
   ACTIVIDADES_NEGOCIO,
 } from "../../../constants/catalog";
 
-export function StepPerfil({ data, errors, update }) {
+export function StepPerfil({
+  data,
+  errors,
+  update,
+  actividadesIndependiente = ACTIVIDADES_INDEPENDIENTE,
+  actividadesNegocio = ACTIVIDADES_NEGOCIO,
+}) {
 
   return (
     <div className={handles.stepContent}>
@@ -60,12 +66,12 @@ export function StepPerfil({ data, errors, update }) {
       )}
 
       {data.tipoSolicitud === "independiente" && (
-        <Field label="Actividad principal" required>
+        <Field label="Actividad del independiente" required>
           <SelectInput
             value={data.actividadIndependiente}
             onChange={(v) => update("actividadIndependiente", v)}
           >
-            {ACTIVIDADES_INDEPENDIENTE.map((a) => (
+            {actividadesIndependiente.map((a) => (
               <option key={a} value={a}>{a}</option>
             ))}
           </SelectInput>
@@ -96,7 +102,7 @@ export function StepPerfil({ data, errors, update }) {
                 value={data.actividadNegocio}
                 onChange={(v) => update("actividadNegocio", v)}
               >
-                {ACTIVIDADES_NEGOCIO.map((a) => (
+                {actividadesNegocio.map((a) => (
                   <option key={a} value={a}>{a}</option>
                 ))}
               </SelectInput>

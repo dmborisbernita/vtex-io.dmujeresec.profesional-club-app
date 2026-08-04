@@ -1,6 +1,19 @@
 import type { RegistrationPayload } from "../clients/registrations";
 import { getAppSettingsSafe } from "../utils/getAppSettings";
 
+// DRF devuelve los errores de validación como { campo: ["mensaje", ...] }
+// (o { non_field_errors: [...] } / { detail: "..." }). Los aplanamos a un
+// solo string legible para mostrarlo directo en la UI.
+function extractValidationMessage(body: unknown): string | null {
+  if (!body || typeof body !== "object") return null;
+
+  const messages = Object.values(body as Record<string, unknown>)
+    .flatMap((value) => (Array.isArray(value) ? value : [value]))
+    .filter((value): value is string => typeof value === "string");
+
+  return messages.length ? messages.join(" ") : null;
+}
+
 export async function saveApplication(ctx: Context) {
   const {
     state: { body },
@@ -54,6 +67,20 @@ export async function saveApplication(ctx: Context) {
       ctx.body = {
         error:
           "Ya tienes una solicitud en proceso con esta identificación.",
+      };
+      return;
+    }
+
+    if (status === 400) {
+      // Error de validación del serializer (datos mal formados, choice
+      // inválido, etc.): a diferencia de los errores técnicos de abajo, el
+      // mensaje sí es información útil para que la clienta corrija su envío,
+      // así que se propaga en vez de esconderlo en backendDetail.
+      ctx.status = 400;
+      ctx.body = {
+        error:
+          extractValidationMessage(responseBody) ||
+          "Revisa los datos ingresados e inténtalo de nuevo.",
       };
       return;
     }

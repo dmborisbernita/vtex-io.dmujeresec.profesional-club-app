@@ -1,8 +1,8 @@
 import { GraduationCap, UserCheck, Building2 } from "lucide-react";
 
 export const ACTIVIDADES_INDEPENDIENTE = [
-  "Maquillador/a", "Técnico/a capilar", "Técnico/a en uñas",
-  "Técnico/a integral", "Especialista en cuidado de la piel", "Barbero/a",
+  "Maquillador", "Técnico capilar", "Técnico en uñas",
+  "Técnico integral", "Especialista en cuidado de la piel", "Barbero",
 ];
 
 export const ACTIVIDADES_NEGOCIO = [

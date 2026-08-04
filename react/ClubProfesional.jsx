@@ -15,6 +15,8 @@ function ClubProfesional({
   infoStat2Label,
   infoTermsText,
   infoPolicyText,
+  actividadesIndependiente,
+  actividadesNegocio,
 }) {
   const formRef = useRef(null);
 
@@ -37,6 +39,8 @@ function ClubProfesional({
           heroTitle={heroTitle}
           heroSubtitle={heroSubtitle}
           promoText={promoText}
+          actividadesIndependiente={actividadesIndependiente}
+          actividadesNegocio={actividadesNegocio}
         />
       </div>
     </div>
@@ -66,6 +70,16 @@ ClubProfesional.schema = {
     infoStat2Label: { title: "Panel info: etiqueta 2", type: "string" },
     infoTermsText: { title: "Panel info: texto de términos", type: "string" },
     infoPolicyText: { title: "Panel info: texto de política", type: "string" },
+    actividadesIndependiente: {
+      title: "Actividades: perfil Independiente",
+      type: "array",
+      items: { title: "Actividad", type: "string" },
+    },
+    actividadesNegocio: {
+      title: "Actividades: perfil Propietario",
+      type: "array",
+      items: { title: "Actividad", type: "string" },
+    },
   },
 };
 

@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "dependencies": {
     "lucide-react": "^0.383.0",
-    "react-markdown": "^8.0.7"
+    "react-markdown": "^8.0.7",
+    "remark-breaks": "^3.0.3"
   },
   "devDependencies": {
     "@types/react": "^16.9.11",
