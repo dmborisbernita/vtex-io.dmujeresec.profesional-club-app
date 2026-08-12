@@ -19,14 +19,24 @@ export function StepIdentidad({ data, errors, update }) {
 
   return (
     <div className={handles.stepContent}>
-      <Field label="Nombre completo" required error={errors.nombre}>
-        <TextInput
-          value={data.nombre}
-          onChange={(v) => update("nombre", v)}
-          error={errors.nombre}
-          placeholder="María Fernanda Torres"
-        />
-      </Field>
+      <div className={handles.row}>
+        <Field label="Nombres" required error={errors.nombres}>
+          <TextInput
+            value={data.nombres}
+            onChange={(v) => update("nombres", v)}
+            error={errors.nombres}
+            placeholder="María Fernanda"
+          />
+        </Field>
+        <Field label="Apellidos" required error={errors.apellidos}>
+          <TextInput
+            value={data.apellidos}
+            onChange={(v) => update("apellidos", v)}
+            error={errors.apellidos}
+            placeholder="Torres Vera"
+          />
+        </Field>
+      </div>
 
       <div className={handles.row}>
         <Field label="Tipo de identificación" required>

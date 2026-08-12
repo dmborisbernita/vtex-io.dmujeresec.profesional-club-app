@@ -23,11 +23,10 @@ export function StepContacto({ data, errors, update }) {
         <Field label="Teléfono" required error={errors.telefono}>
           <TextInput
             value={data.telefono}
-            onChange={(v) => update("telefono", v.replace(/[^0-9]/g, ""))}
+            onChange={(v) => update("telefono", v.replace(/[^0-9\s-]/g, ""))}
             error={errors.telefono}
-            maxLength={10}
-            inputMode="numeric"
-            placeholder="0991234567"
+            maxLength={20}
+            placeholder="099 123 4567"
           />
         </Field>
       </div>

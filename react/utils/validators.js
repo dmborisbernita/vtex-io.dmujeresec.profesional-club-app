@@ -76,6 +76,14 @@ export function isValidRuc(numero) {
   return false;
 }
 
+// Mismo criterio que ya valida Odoo del lado del ERP: 9 a 16 dígitos,
+// permitiendo espacios y guiones como separadores (no cuentan como dígito).
+export function isValidTelefono(telefono) {
+  if (!/^[0-9\s-]+$/.test(telefono)) return false;
+  const digitos = telefono.replace(/[\s-]/g, "");
+  return digitos.length >= 9 && digitos.length <= 16;
+}
+
 export function isAdult(fechaNacimiento, minAge = 18) {
   if (!fechaNacimiento) return false;
   const nacimiento = new Date(fechaNacimiento + "T00:00:00");

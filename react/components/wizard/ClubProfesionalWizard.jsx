@@ -167,7 +167,8 @@ export function ClubProfesionalWizard({
   function fillFakeData() {
     setData({
       ...INITIAL_DATA,
-      nombre: "María José Pérez",
+      nombres: "María José",
+      apellidos: "Pérez Salazar",
       tipoId: "cedula",
       numeroId: "1710034065",
       fechaNacimiento: "1995-05-20",
@@ -194,7 +195,7 @@ export function ClubProfesionalWizard({
 
   const progress = useMemo(() => {
     const fields = [
-      data.nombre, data.numeroId, data.fechaNacimiento, data.email,
+      data.nombres, data.apellidos, data.numeroId, data.fechaNacimiento, data.email,
       data.telefono, data.provincia, data.ciudad, data.direccion,
     ];
     const filled = fields.filter((f) => String(f || "").trim() !== "").length;

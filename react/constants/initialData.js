@@ -1,7 +1,8 @@
 import { ACTIVIDADES_INDEPENDIENTE, ACTIVIDADES_NEGOCIO } from "./catalog";
 
 export const INITIAL_DATA = {
-  nombre: "",
+  nombres: "",
+  apellidos: "",
   tipoId: "cedula",
   numeroId: "",
   fechaNacimiento: "",

@@ -1,4 +1,4 @@
-import { isValidCedula, isValidRuc, isAdult } from "./validators";
+import { isValidCedula, isValidRuc, isAdult, isValidTelefono } from "./validators";
 import { validateDocumentos } from "./uploadValidation";
 
 const MIN_EDAD = 18;
@@ -6,7 +6,8 @@ const MIN_EDAD = 18;
 export function validateStep(current, data) {
   const e = {};
   if (current === 1) {
-    if (!data.nombre.trim()) e.nombre = "Ingresa tu nombre completo";
+    if (!data.nombres.trim()) e.nombres = "Ingresa tus nombres";
+    if (!data.apellidos.trim()) e.apellidos = "Ingresa tus apellidos";
 
     const numeroId = data.numeroId.trim();
     const esCedula = data.tipoId === "cedula";
@@ -31,7 +32,9 @@ export function validateStep(current, data) {
   }
   if (current === 2) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) e.email = "Ingresa un correo válido";
-    if (!/^[0-9]{6,10}$/.test(data.telefono)) e.telefono = "Ingresa un teléfono válido";
+    if (!isValidTelefono(data.telefono)) {
+      e.telefono = "El campo Teléfono debe contener entre 9 y 16 dígitos (se permiten espacios y guiones).";
+    }
     if (!data.provincia) e.provincia = "Selecciona tu provincia";
     if (!data.ciudad) e.ciudad = "Selecciona tu ciudad";
     if (!data.direccion.trim()) e.direccion = "Ingresa tu dirección";

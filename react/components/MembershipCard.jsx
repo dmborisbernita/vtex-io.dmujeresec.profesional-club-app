@@ -33,7 +33,7 @@ export function MembershipCard({ data, progress }) {
       <div className={handles.cardRow}>
         <div className={handles.cardNameGroup}>
           <span className={handles.cardNameLabel}>Titular</span>
-          <span className={handles.cardName}>{data.nombre.trim() || "Tu nombre aquí"}</span>
+          <span className={handles.cardName}>{[data.nombres, data.apellidos].filter(Boolean).join(" ").trim() || "Tu nombre aquí"}</span>
         </div>
         <div className={handles.cardMiniGroup}>
           <div>

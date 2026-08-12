@@ -91,7 +91,7 @@ export function StepConfirmar({ data, errors, update, docOptions }) {
       <div className={handles.summary}>
         <span className={handles.summaryTitle}>Revisa tu solicitud</span>
         <dl>
-          <div><dt>Nombre</dt><dd>{data.nombre || "—"}</dd></div>
+          <div><dt>Nombre</dt><dd>{[data.nombres, data.apellidos].filter(Boolean).join(" ") || "—"}</dd></div>
           <div><dt>Identificación</dt><dd>{data.numeroId || "—"}</dd></div>
           <div><dt>Correo</dt><dd>{data.email || "—"}</dd></div>
           <div><dt>Teléfono</dt><dd>{data.telefono || "—"}</dd></div>

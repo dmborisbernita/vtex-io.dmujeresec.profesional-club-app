@@ -3,7 +3,8 @@ import { ExternalClient } from "@vtex/api";
 
 export interface RegistrationPayload {
   tipoSolicitud: string;
-  nombre: string;
+  nombres: string;
+  apellidos: string;
   tipoId: string;
   numeroId: string;
   fechaNacimiento: string;
